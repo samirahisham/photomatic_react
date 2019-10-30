@@ -3,5 +3,6 @@ export const FETCH_EVENT_DETAIL = "FETCH_EVENT_DETAIL"
 export const CREATE_EVENT = "CREATE_EVENT"
 export const ADD_PHOTOS = "ADD_PHOTOS"
 export const SET_ERRORS = "SET_ERRORS"
+export const RESET_EVENTS = "RESET_EVENTS"
 
 export const SET_CURRENT_USER = "SET_CURRENT_USER";

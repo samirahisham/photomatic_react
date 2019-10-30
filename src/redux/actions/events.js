@@ -11,6 +11,12 @@ export const fetchEvents = () => async dispatch => {
   }
 };
 
+export const resetEvents = () => {
+  return {
+    type: actionTypes.RESET_EVENTS
+  };
+};
+
 export const fetchEventDetail = eventID => async dispatch => {
     try {
       const res = await instance.get(`events/${eventID}/`);
