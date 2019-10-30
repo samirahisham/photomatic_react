@@ -9,7 +9,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         errors: Object.keys(action.payload).map(
-          key => `${key}: ${action.payload[key]}`
+          key => `${action.payload[key]}`
         )
       };
     default:

@@ -22,6 +22,12 @@ const reducer = (state = initialState, action) => {
           event: event,
           loading: false
         };
+      case actionTypes.RESET_EVENTS:
+        return {
+          ...state,
+          events: [],
+          loading: false
+        };
     default:
       return state;
   }

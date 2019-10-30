@@ -4,6 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import "./assets/css/themify-icons.css";
+import "./assets/css/owl.carousel.min.css";
+import '@trendmicro/react-sidenav/dist/react-sidenav.css';
+
+
 
 import { Provider } from "react-redux";
 import store from "./redux";

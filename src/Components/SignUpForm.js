@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import logo from "../assets/logo-wbg.png"
+
 
 //Actions
 import { signup, resetErrors } from "../redux/actions";
@@ -8,9 +10,9 @@ import { signup, resetErrors } from "../redux/actions";
 class SignUp extends Component {
   state = {
     username: "",
-    email:"",
+    first_name:"",
+    last_name:"",
     password: "",
-    img:""
   };
 
   componentWillUnmount() {
@@ -18,7 +20,13 @@ class SignUp extends Component {
   }
 
   changeHandler = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    if (e.target.name !== "img")
+      {this.setState({ [e.target.name]: e.target.value })}
+    else {
+      let formData = new FormData()
+      this.setState({ img: formData.append(e.target.value) })
+    }
+
   };
 
   submitHandler = e => {
@@ -28,61 +36,67 @@ class SignUp extends Component {
   };
 
   render() {
-    if (this.props.user) return <Redirect to="/events" />;
+    // if (this.props.user) return <Redirect to="/events" />;
 
     const errors = this.props.errors;
+    console.log(errors)
 
 
     return (
-            <div className="bg">
-                <div className="container">
+            <div className="bg navbg">
+                <div className="container-fluid navbg">
                     <div className="row">
                         <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
                             <div className="card card-signin my-5">
                                 <div className="card-body">
-                                    <h5 className="card-title text-center">Sign In</h5>
+                                <img src={logo} className="img-fluid mb-4" style={{height:90}}alt="logo"/>
+                                    <h5 className="card-title text-center">Sign Up!</h5>
                                     <form className="form-signin" onSubmit={this.submitHandler}>
                                         <div className="form-label-group">
-                                            <input type="text" id="inputUser" className="form-control" placeholder="Username" name="username" onChange={this.changeHandler} required autofocus />
-                                            <label for="inputUser">Username</label>
+                                            <input type="email" id="inputUser" className="form-control" placeholder="Email" name="username" onChange={this.changeHandler} required autofocus />
+                                            <label for="inputUser">Email</label>
                                         </div>
                                         <div className="form-label-group">
-                                            <input type="email" id="inputEmail" className="form-control" placeholder="Email" name="email" onChange={this.changeHandler} required autofocus />
-                                            <label for="inputEmail">Email</label>
+                                            <input type="text" id="inputFname" className="form-control" placeholder="First Name" name="first_name" onChange={this.changeHandler} required autofocus />
+                                            <label for="inputFname">First Name</label>
+                                        </div>
+                                        <div className="form-label-group">
+                                            <input type="text" id="inputLname" className="form-control" placeholder="Last Name" name="last_name" onChange={this.changeHandler} required autofocus />
+                                            <label for="inputLname">Last Name</label>
                                         </div>
 
                                         <div className="form-label-group">
                                             <input type="password" id="inputPassword" className="form-control" placeholder="Password" placeholder="Password" name="password" onChange={this.changeHandler} required />
                                             <label for="inputPassword">Password</label>
                                             {!!errors.length && (
-                                            <div className="alert alert-danger" role="alert">
+                                            <div className="text-danger mt-2">
                                                 {errors.map(error => (
-                                                <p key={error}>{console.log(error)}</p>
+                                                <p key={error}>{error}</p>
                                                 ))}
                                             </div>
                                             )}
                                         </div>
                                         <div className="input-group mb-3">
-                                        <div className="input-group-prepend">
-                                            <span className="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                                        </div>
                                         <div className="custom-file">
-                                            <input type="file" name="img" className="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"/>
-                                            <label className="custom-file-label" for="inputGroupFile01">Choose Profile Image</label>
+                                          <input name ="img" type="file" className="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"/>
+                                          <label className="custom-file-label " style={{width:375, borderBottomLeftRadius:50, borderTopLeftRadius:50}} for="inputGroupFile04">Profile Image</label>
                                         </div>
-                                        </div>
-                                        <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
-                                        <hr className="my-4">
-                                        <div className="card-footer">
+                                      
+                                      </div>
+                        
+                                       
+                                        <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign Up</button>
+                                   
+                                       
                                         <Link
                                             id="nav-link-auth"
                                             to="/login"
                                             className="btn btn-small btn-link"
                                         >
-                                            existing photographer?
+                                            Existing photographer?
                                         </Link>
-                                        </div>
-                                        </hr>
+                                      
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -113,3 +127,4 @@ export default connect(
 )(SignUp);
 
 
+// export default SignUp;
