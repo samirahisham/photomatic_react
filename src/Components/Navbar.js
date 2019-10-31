@@ -16,7 +16,7 @@ const NavBar = () =>{
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"> <span className="navbar-toggler-icon"></span> </button>
                         <div className="collapse navbar-collapse" id="navbar">
                             <ul className="navbar-nav ml-auto">
-                                <li className="nav-item"> <Link  to="/signup" className="nav-link active">SIGN UP!<span className="sr-only">(current)</span></Link> </li>
+                                <li className="nav-item"> <Link  to="/signup" className="nav-link active">SIGN UP<span className="sr-only">(current)</span></Link> </li>
                                 <li className="nav-item"> <Link to="/login" className="nav-link" >SIGN IN</Link> </li>
                                 <li className="nav-item"> <Link to="/about" className="nav-link" >ABOUT US</Link> </li>
                                 <li className="nav-item"><a href="#" className="btn btn-outline-light my-3 my-sm-0 ml-lg-3">Attendee? Download the app</a></li>

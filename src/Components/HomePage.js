@@ -13,6 +13,7 @@ class HomePage extends Component {
     if (this.props.user) return <Redirect to="/events" />;
    
     return (
+      <>
             <div className="container-fluid">
                 <NavBar/>
                 <header classNasme="" id="home">
@@ -23,6 +24,17 @@ class HomePage extends Component {
             <div classNasme="img-holder mt-3"><img src={phone} alt="phone" classNasme="img-fluid"/></div>
             </header>
                 </div>
+                <div className="container-fluid">
+                
+                <header classNasme="" id="about">
+            <div style={{marginTop:100}}>
+            <h2 className="display-4">About us</h2>
+            <p classNasme="tagline">The amazing solution for photographers after shooting photos in a event. Just upload your event's photos and let the attendees find their images via our Face Recognition App. </p>
+            </div>
+            </header>
+                </div>
+                </>
+                
 
    
   

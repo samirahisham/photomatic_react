@@ -3,7 +3,7 @@ import React from "react";
 import {Modal, Button} from 'react-bootstrap'
 
 
-function MyVerticallyCenteredModal(props) {
+function ShareForm(props) {
     return (
       <Modal
         {...props}
@@ -21,11 +21,11 @@ function MyVerticallyCenteredModal(props) {
           <h6>Enter Email Address(s)</h6><input className="rounded-pill"></input>
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="primary" onClick={props.onHide}>Send</Button>
+        <Button variant="warning" onClick={props.onHide}>Send</Button>
           <Button variant="secondary" onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
   }
 
-  export default MyVerticallyCenteredModal
+  export default ShareForm

@@ -7,21 +7,21 @@ import moment from "moment";
      const event = props.event
     let date = moment(event.date_added).fromNow();
     return (
-      <div id="card-items" className="card">
-        <div className="card-body">
-          <Link id="card-name" to={`/events/${event.id}`}>
-            <h5 className="card-title">
-              <span>{event.title}</span>
-            </h5>
-          </Link>
-          <p className="card-text" style={{ marginBottom: 0 }}>
-            {`${event.location} - ${event.date}`}
-          </p>
-          <small className="card-text">
-            <strong>Added {date}</strong>
-          </small>
-        </div>
+      <Link id="card-name" to={`/events/${event.id}`}>
+      <div className="card text-center ml-3 mt-3 mb-3 mr-3">
+      <div className="card-header">
+      {`${event.location} - ${event.date}`}
       </div>
+      <div className="card-body">
+        <h5 className="card-title">{event.title.toUpperCase()}</h5>
+       
+      </div>
+      <div className="card-footer text-muted">
+      Added {date}
+      </div>
+      </div>
+      </Link>
+     
     );
   }
  
