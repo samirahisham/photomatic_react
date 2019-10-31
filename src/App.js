@@ -35,7 +35,7 @@ class App extends Component {
                   <button className="btn btn-outline-light" id="menu-toggle">Menu</button>
                   <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li className="nav-item active">
-                        <img src={logo} className="img-fluid" style={{height:40}}alt="logo"/>
+                        <img src={logo} className="img-fluid mt-3 mb-3" style={{height:40}}alt="logo"/>
                     </li>
                   </ul>          
                     </nav>

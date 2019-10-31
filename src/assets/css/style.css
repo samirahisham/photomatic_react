@@ -37,12 +37,14 @@ body {
 }
 
 a {
-    color: #8c99e3;
+    color: #9e9ea0;
 }
 
 a:hover,
 a:focus {
-    color: #5869ca;
+    color: #1544c4;
+    text-decoration: none;
+    
 }
 
 h1 {

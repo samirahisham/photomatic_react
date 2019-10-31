@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import {logout} from "../redux/actions"
+import CreateEvent from "./CreateEvent"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faFolderPlus,
@@ -10,11 +11,22 @@ import {
 
 
 class SideBar extends React.Component {
-    state = { collapsed: false };
+    state = { collapsed: false, CreateShow:false };
+
+    
 
     logouut = () => {
       this.props.logout()
       
+    }
+
+    setCreateShow = (boolean) =>{
+      if (boolean===true){
+        this.setState({CreateShow:true})
+      }else {
+        this.setState({CreateShow:false})
+      }
+  
     }
 
     render(){
@@ -24,15 +36,20 @@ class SideBar extends React.Component {
       <div className="sidebar-heading">Hey User! </div>
       <div className="list-group list-group-flush">
       <img src="http://svgur.com/i/65U.svg" alt="profile_img" style={{height:150, marginBottom: 25}}></img>
-        <Link to="/events/create" className="list-group-item list-group-item-action bg-primary text-light"><span className="mr-2"><FontAwesomeIcon
+        <div className="list-group-item list-group-item-action bg-primary text-light" onClick={() => this.setCreateShow(true)} ><span className="mr-2"><FontAwesomeIcon
                 icon={faFolderPlus}
-              /></span>Create Event Album</Link>
+              /></span>Create Event Album</div>
         <Link to="/events" className="list-group-item list-group-item-action bg-light">My Albums</Link>
         <Link to="/" className="list-group-item list-group-item-action bg-light">Profile</Link>
         <button onClick={()=>this.logouut()} className="list-group-item list-group-item-action bg-light" style={{marginTop:300}}><span className="mr-2"><FontAwesomeIcon
                 icon={faSignOutAlt}
               /></span>Logout</button>
       </div>
+      <CreateEvent
+              
+              show={this.state.CreateShow}
+              onHide={() => this.setCreateShow(false)}
+          />
     </div>
   )}}
 

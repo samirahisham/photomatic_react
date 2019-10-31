@@ -44,3 +44,12 @@ export const fetchEventDetail = eventID => async dispatch => {
       console.error(error);
     }
   };
+
+  export const uploadPics = pictures => async dispatch => {
+    try {
+      const res = await instance.post("upload/", pictures);
+      dispatch({ type: actionTypes.ADD_PICS, payload: res.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
