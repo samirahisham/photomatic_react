@@ -30,14 +30,31 @@ const defaultOptions2 = {
 
 class UploadForm extends Component{
 
+  state = { pictures: [],eventID: this.props.eventID, done: undefined, rejections:[] };
+  
+  getAlert=()=>{
+    if(!!this.state.rejections.length){
+      return(
+        <div className="alert alert-danger" role="alert">
+    Uploaded images was rejected because of {this.state.rejections.join(", ")}
+    </div>
+      )
+    }
+  }
+    componentDidUpdate(){
+      if (this.state.rejections.length){
+        this.getAlert()
+        setTimeout(() => window.location.reload(),5000 )
+      }
 
-  state = { pictures: [],eventID: this.props.eventID, done: undefined };
-    
+    }
+
   setUploader=()=>{
       if(!this.state.done && !this.state.loading){
         return(
 
             <div class="d-flex justify-content-center align-items-center" style={{height:400, width:400, marginLeft:250}}>
+            
             <FileBase64
               multiple={ true }
               onDone={ (pic)=>this.onDrop(pic) } />
@@ -61,23 +78,34 @@ class UploadForm extends Component{
           )
       }
     }
-    
+     rejections = []
 
-  onDrop=(picture) =>{
-      this.setState({
-          pictures: this.state.pictures.concat(picture),
-      });
+  onDrop=(pictures) =>{
+    const types = ['image/jpeg', 'image/jpg', 'image/png']
+   
+    pictures.forEach(picture=> {
+        if (types.includes(picture.type)){
+          this.setState({
+            pictures: this.state.pictures.concat(picture)
+        })
+        } 
+        
+        else{this.state.rejections.push(picture.name)}
+          
+        })
+    if (this.state.pictures.length === pictures.length){
+      
       this.props.uploadPics({pictures:this.state.pictures, eventID:this.state.eventID})
       let seeingTime = 1000
       let timeload = seeingTime+(100*this.state.pictures.length)
       let doneTime=timeload+1000
-
+  
       setTimeout(() => this.setState({ loading: true }),seeingTime )
       setTimeout(() => this.setState({ done: true, loading: false }),doneTime )
       setTimeout(() => window.location.reload(),doneTime+1000 )
-      
-      
-      }
+    }
+    
+  }
     
   
 
@@ -98,6 +126,7 @@ class UploadForm extends Component{
         </Modal.Header>
         <Modal.Body>
         <p>Please Upload your pictures here </p>
+       {this.getAlert()}
         <br></br>
         <div>
         {this.setUploader()}

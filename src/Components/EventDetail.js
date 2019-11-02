@@ -12,14 +12,15 @@ class EventDetail extends Component{
   state={
     ShareShow:false,
     UploadShow:false,
-    event:null
+    event:null,
+    photos:[]
 
   }
 
   componentDidMount(){
     let event = this.props.events.find(event=> event.id===parseInt(this.props.match.params.eventID))
     if(event){
-      this.setState({event})
+      this.setState({event, photos: event.photos})
     }
   }
 
@@ -27,7 +28,8 @@ class EventDetail extends Component{
     if(prevProps.events!==this.props.events){
       let event = this.props.events.find(event=> event.id===parseInt(this.props.match.params.eventID))
       if(event){
-        this.setState({event})
+        this.setState({event, photos: event.photos})
+        
       }
     }
   }
@@ -51,6 +53,8 @@ class EventDetail extends Component{
     }
 
   }
+
+
  
     
 
@@ -58,7 +62,16 @@ class EventDetail extends Component{
      
       if (!this.props.user) return <Redirect to="/homepage" />; 
       const event= this.state.event
-      console.log("rerendering")
+      const photos = this.state.photos.map(photo => {
+        return (
+
+          <div className="card" style={{width: "25rem"}}>
+          <img src={photo.photo} className="card-img" alt={photo.photo}/>
+          </div>
+        
+        )
+      })
+      
       return (
         <>
           <div className="container-fluid mt-3">
@@ -90,6 +103,10 @@ class EventDetail extends Component{
           </ButtonToolbar>
           </div>
           <hr />
+          <br></br>
+          <div className="row">
+          {photos}
+          </div>
           </>
       
       );
