@@ -50,6 +50,7 @@ class EventDetail extends Component{
       this.setState({UploadShow:true})
     }else {
       this.setState({UploadShow:false})
+      // window.location.reload()
     }
 
   }

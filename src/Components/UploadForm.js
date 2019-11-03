@@ -41,13 +41,7 @@ class UploadForm extends Component{
       )
     }
   }
-    componentDidUpdate(){
-      if (this.state.rejections.length){
-        this.getAlert()
-        setTimeout(() => window.location.reload(),5000 )
-      }
 
-    }
 
   setUploader=()=>{
       if(!this.state.done && !this.state.loading){
@@ -57,7 +51,7 @@ class UploadForm extends Component{
             
             <FileBase64
               multiple={ true }
-              onDone={ (pic)=>this.onDrop(pic) } />
+              onDone={(pic)=>this.onDrop(pic)}/>
               </div>
           
         )} else if (!!this.state.loading){
@@ -90,7 +84,12 @@ class UploadForm extends Component{
         })
         } 
         
-        else{this.state.rejections.push(picture.name)}
+        else{
+          let rejections = this.state.rejections
+          rejections.push(picture.name)
+        this.setState(rejections)
+
+        }
           
         })
     if (this.state.pictures.length === pictures.length){
@@ -102,8 +101,9 @@ class UploadForm extends Component{
   
       setTimeout(() => this.setState({ loading: true }),seeingTime )
       setTimeout(() => this.setState({ done: true, loading: false }),doneTime )
-      setTimeout(() => window.location.reload(),doneTime+1000 )
+      // setTimeout(() => window.location.reload(),doneTime+1000 )
     }
+    // setTimeout(() => window.location.reload(),5000 )
     
   }
     

@@ -18,6 +18,7 @@ import EventDetail from "./Components/EventDetail"
 import EventForm from "./Components/EventForm"
 // import ShareForm from "./Components/ShareForm"
 import logo from "./assets/logo.png"
+import test from "./Components/test"
 
 class App extends Component {
 
@@ -42,6 +43,7 @@ class App extends Component {
               <div class="container-fluid">
                 <Switch>
                   <Redirect exact from="/" to="/events" />
+                  <Route path="/test" component={test} />
                   <Route path="/homepage" component={HomePage} />
                   <Route path="/login" component={LoginForm} />
                   <Route path="/signup" component={SignUpForm} />
