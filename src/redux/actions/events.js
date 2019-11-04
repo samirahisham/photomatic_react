@@ -27,10 +27,12 @@ export const fetchEventDetail = eventID => async dispatch => {
     }
   };
 
-  export const createEvent = event => async dispatch => {
+  export const createEvent = (event,history) => async dispatch => {
     try {
       const res = await instance.post("events/create/", event);
       dispatch({ type: actionTypes.CREATE_EVENT, payload: res.data });
+      console.log(res.data)
+      history.replace(`events/${res.data.id}`);
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +49,7 @@ export const fetchEventDetail = eventID => async dispatch => {
 
   export const uploadPics = pictures => async dispatch => {
     try {
-      const res = await instance.post("upload/", pictures);
+      const res = await instance.post("uploads/", pictures);
       dispatch({ type: actionTypes.ADD_PICS, payload: res.data });
     } catch (error) {
       console.error(error);
