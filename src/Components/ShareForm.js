@@ -20,7 +20,21 @@ function ShareForm(props) {
           access via your Event ID
         </p>
         <h6>Enter Email Address(s)</h6>
-        <input className="rounded-pill"></input>
+        <form className="form-signin">
+          <div className="form-label-group">
+            <input
+              type="email"
+              id="inputUser"
+              className="form-control"
+              placeholder="Email"
+              name="username"
+              // onChange={this.changeHandler}
+              required
+              autofocus
+            />
+            <label for="inputUser">Email</label>
+          </div>
+        </form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="warning" onClick={props.onHide}>

@@ -21,6 +21,7 @@ class EventDetail extends Component {
     if (event) {
       this.setState({ event, photos: event.photos });
     }
+    this.setState({ event });
   }
 
   componentDidUpdate(prevProps) {
@@ -31,6 +32,7 @@ class EventDetail extends Component {
       if (event) {
         this.setState({ event, photos: event.photos });
       }
+      this.setState({ event });
     }
   }
 
@@ -54,13 +56,16 @@ class EventDetail extends Component {
   render() {
     if (!this.props.user) return <Redirect to="/homepage" />;
     const event = this.state.event;
-    const photos = this.state.photos.map((photo) => {
-      return (
-        <div className="card ml-4" style={{ width: "25rem" }}>
-          <img src={photo.photo} className="card-img" alt={photo.photo} />
-        </div>
-      );
-    });
+    let photosList = [];
+    if (this.state.photos) {
+      photosList = this.state.photos.map((photo) => {
+        return (
+          <div className="card ml-4" style={{ width: "25rem" }}>
+            <img src={photo.photo} className="card-img" alt={photo.photo} />
+          </div>
+        );
+      });
+    }
 
     return (
       <>
@@ -119,7 +124,7 @@ class EventDetail extends Component {
         </div>
         <hr />
         <br></br>
-        <div className="row">{photos}</div>
+        <div className="row">{photosList}</div>
       </>
     );
   }

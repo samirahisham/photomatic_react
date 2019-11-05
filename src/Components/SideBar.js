@@ -3,8 +3,16 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../redux/actions";
 import CreateEvent from "./EventForm";
+import FileBase64 from "react-file-base64";
+import editprofile from "../assets/images/editprofile.png";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFolderPlus, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFolderPlus,
+  faSignOutAlt,
+  faUpload
+} from "@fortawesome/free-solid-svg-icons";
+import { relative } from "path";
 
 class SideBar extends React.Component {
   state = { collapsed: false, CreateShow: false };
@@ -22,16 +30,43 @@ class SideBar extends React.Component {
   };
 
   render() {
-    console.log(this.props.user);
+    const types = ["image/jpeg", "image/jpg", "image/png"];
+
     return (
       <div className="bg-light border-right toggle" id="sidebar-wrapper">
         <div className="sidebar-heading">Hey User! </div>
         <div className="list-group list-group-flush">
-          <img
-            src="http://svgur.com/i/65U.svg"
-            alt="profile_img"
-            style={{ height: 150, marginBottom: 25 }}
-          ></img>
+          <div class="card text-white">
+            <img
+              src="http://svgur.com/i/65U.svg"
+              style={{ height: 170, marginBottom: 25 }}
+              class="card-img"
+              alt="profile_img"
+            />
+            <div class="card-img-overlay" style={{ marginTop: 90 }}>
+              <label className="mt-2 text-light btn text-center" style={{}}>
+                <FileBase64
+                  multiple={false}
+                  onDone={(pic) => {
+                    if (types.includes(pic.type)) {
+                      this.setState({
+                        img: pic
+                      });
+                    } else {
+                      alert(`${pic.name} is an invaild type file`);
+                    }
+                  }}
+                />
+                <img
+                  src={editprofile}
+                  class="card-img"
+                  style={{ width: 150 }}
+                  alt="profile_img"
+                />
+              </label>
+            </div>
+          </div>
+
           <Link to="/create">
             <div className="list-group-item list-group-item-action bg-primary text-light">
               <span className="mr-2">

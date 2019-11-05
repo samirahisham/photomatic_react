@@ -21,12 +21,7 @@ class SignUp extends Component {
   }
 
   changeHandler = (e) => {
-    if (e.target.name !== "img") {
-      this.setState({ [e.target.name]: e.target.value });
-    } else {
-      let formData = new FormData();
-      this.setState({ img: formData.append(e.target.value) });
-    }
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   submitHandler = (e) => {
@@ -39,7 +34,7 @@ class SignUp extends Component {
     if (this.props.user) return <Redirect to="/events" />;
     const types = ["image/jpeg", "image/jpg", "image/png"];
     const errors = this.props.errors;
-    console.log(errors);
+    console.log(this.state);
 
     return (
       <div className="bg navbg">
