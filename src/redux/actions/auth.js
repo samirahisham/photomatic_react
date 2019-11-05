@@ -86,3 +86,22 @@ export const checkForExpiredToken = () => {
   }
   return logout();
 };
+
+export const getProfile = () => async (dispatch) => {
+  try {
+    const res = await instance.get("profile/");
+    const profile = res.data;
+    dispatch({ type: actionTypes.GET_PROFILE, payload: profile });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateProfileImg = (img) => async (dispatch) => {
+  try {
+    const res = await instance.put("profile/", img);
+    dispatch({ type: actionTypes.CHANGE_PHOTO, payload: res.data });
+  } catch (error) {
+    console.error(error);
+  }
+};

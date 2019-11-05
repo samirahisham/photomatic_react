@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { ButtonToolbar, Button } from "react-bootstrap";
-
+import { fetchEventDetail } from "../redux/actions";
 import ShareForm from "./ShareForm";
 import UploadForm from "./UploadForm";
 
@@ -15,9 +15,8 @@ class EventDetail extends Component {
   };
 
   componentDidMount() {
-    let event = this.props.events.find(
-      (event) => event.id === parseInt(this.props.match.params.eventID)
-    );
+    this.props.fetchEventDetail(parseInt(this.props.match.params.eventID));
+    const event = this.props.event;
     if (event) {
       this.setState({ event, photos: event.photos });
     }
@@ -25,10 +24,9 @@ class EventDetail extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.events !== this.props.events) {
-      let event = this.props.events.find(
-        (event) => event.id === parseInt(this.props.match.params.eventID)
-      );
+    if (prevProps.event !== this.props.event) {
+      this.props.fetchEventDetail(parseInt(this.props.match.params.eventID));
+      const event = this.props.event;
       if (event) {
         this.setState({ event, photos: event.photos });
       }
@@ -60,8 +58,14 @@ class EventDetail extends Component {
     if (this.state.photos) {
       photosList = this.state.photos.map((photo) => {
         return (
-          <div className="card ml-4" style={{ width: "25rem" }}>
-            <img src={photo.photo} className="card-img" alt={photo.photo} />
+          <div className="col-lg-3 col-md-4 col-6">
+            <div className="d-block mb-4 h-100">
+              <img
+                src={photo.photo}
+                className="img-fluid img-thumbnail one-edge-shadow"
+                alt={photo.photo}
+              />
+            </div>
           </div>
         );
       });
@@ -124,17 +128,26 @@ class EventDetail extends Component {
         </div>
         <hr />
         <br></br>
-        <div className="row">{photosList}</div>
+        <div className="row text-center text-lg-left">{photosList}</div>
       </>
     );
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchEventDetail: (event) => dispatch(fetchEventDetail(event))
+  };
+};
+
 const mapStateToProps = (state) => {
   return {
-    events: state.eventsRoot.events,
+    event: state.eventsRoot.event,
     user: state.authReducer.user
   };
 };
 
-export default connect(mapStateToProps)(EventDetail);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EventDetail);

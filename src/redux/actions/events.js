@@ -31,9 +31,11 @@ export const createEvent = (event, history) => async (dispatch) => {
   try {
     const res = await instance.post("events/create/", event);
     dispatch({ type: actionTypes.CREATE_EVENT, payload: res.data });
+    console.log("DONE>>>> ", event);
     history.replace(`events/${res.data.id}`);
   } catch (error) {
     console.error(error);
+    console.log("ERROR>>>> ", event);
   }
 };
 
@@ -46,9 +48,9 @@ export const addPhotos = (photos, eventID) => async (dispatch) => {
   }
 };
 
-export const uploadPics = (pictures) => async (dispatch) => {
+export const uploadPics = (event) => async (dispatch) => {
   try {
-    const res = await instance.post("uploads/", pictures);
+    const res = await instance.post(`uploads/${event.eventID}`, event);
     dispatch({ type: actionTypes.ADD_PICS, payload: res.data });
   } catch (error) {
     console.error(error);

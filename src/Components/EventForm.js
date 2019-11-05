@@ -9,6 +9,7 @@ import DayPickerInput from "react-day-picker/DayPickerInput";
 import "react-day-picker/lib/style.css";
 import * as legoData from "../assets/json/shutterloading.json";
 import * as doneData from "../assets/json/done.json";
+import * as eventImg from "../assets/images/event_imgs";
 
 const defaultOptions2 = {
   loop: false,
@@ -26,12 +27,17 @@ class EventForm extends Component {
     date: null,
     time: null,
     done: false,
-    validated: []
+    img: null,
+    validated: [],
+    number_of_attendees: 0
   };
   setValidated = (boolean) => {
     this.setState({ validated: boolean });
   };
   handleChange = (event) => {
+    if (event.target.name === "img") {
+      this.setState({ img: event.target.value });
+    }
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -45,7 +51,9 @@ class EventForm extends Component {
               title: this.state.title,
               location: this.state.location,
               date: this.state.date,
-              time: this.state.time
+              time: this.state.time,
+              img: this.state.img,
+              number_of_attendees: this.state.number_of_attendees
             },
             this.props.history
           ),
@@ -78,6 +86,41 @@ class EventForm extends Component {
                 Make it simple and clear!
               </Form.Text>
             </Form.Group>
+            <Form.Group>
+              <Form.Label>Album Cover</Form.Label>
+              <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input
+                    type="file"
+                    required
+                    name="img"
+                    onChange={this.handleChange}
+                    className="custom-file-input"
+                    id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01"
+                  />
+                  <label class="custom-file-label" for="inputGroupFile01">
+                    Choose Images
+                  </label>
+                </div>
+              </div>
+              <Form.Text className="text-muted">
+                Make your album look pretty
+              </Form.Text>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Number of Attendees</Form.Label>
+              <Form.Control
+                required
+                min="0"
+                name="number_of_attendees"
+                onChange={this.handleChange}
+                type="number"
+                placeholder="How many people attended this event?"
+              />
+              <Form.Text className="text-muted">Just an estimation!</Form.Text>
+            </Form.Group>
+
             <Form.Group>
               <Form.Label>Description</Form.Label>
               <Form.Control

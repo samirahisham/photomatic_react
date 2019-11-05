@@ -15,7 +15,7 @@ import {
 import { relative } from "path";
 
 class SideBar extends React.Component {
-  state = { collapsed: false, CreateShow: false };
+  state = { collapsed: false, CreateShow: false, hide: 0 };
 
   logouut = () => {
     this.props.logout();
@@ -29,6 +29,14 @@ class SideBar extends React.Component {
     }
   };
 
+  mouseOut() {
+    this.setState({ hide: 0 });
+  }
+
+  mouseOver() {
+    this.setState({ hide: 1 });
+  }
+
   render() {
     const types = ["image/jpeg", "image/jpg", "image/png"];
 
@@ -36,7 +44,11 @@ class SideBar extends React.Component {
       <div className="bg-light border-right toggle" id="sidebar-wrapper">
         <div className="sidebar-heading">Hey User! </div>
         <div className="list-group list-group-flush">
-          <div class="card text-white">
+          <div
+            className="card text-white"
+            onMouseOut={() => this.mouseOut()}
+            onMouseOver={() => this.mouseOver()}
+          >
             <img
               src="http://svgur.com/i/65U.svg"
               style={{ height: 170, marginBottom: 25 }}
@@ -44,7 +56,7 @@ class SideBar extends React.Component {
               alt="profile_img"
             />
             <div class="card-img-overlay" style={{ marginTop: 90 }}>
-              <label className="mt-2 text-light btn text-center" style={{}}>
+              <label className="mt-2 text-light btn text-center">
                 <FileBase64
                   multiple={false}
                   onDone={(pic) => {
@@ -59,8 +71,8 @@ class SideBar extends React.Component {
                 />
                 <img
                   src={editprofile}
-                  class="card-img"
-                  style={{ width: 150 }}
+                  className="card-img"
+                  style={{ width: 150, opacity: this.state.hide }}
                   alt="profile_img"
                 />
               </label>
