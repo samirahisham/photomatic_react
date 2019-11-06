@@ -1,17 +1,16 @@
-
 import React, { Component } from "react";
-import {Button, Form } from 'react-bootstrap'
+import { Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { createEvent } from "../redux/actions"
+import { createEvent } from "../redux/actions";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import "react-day-picker/lib/style.css";
 import * as legoData from "../assets/json/shutterloading.json";
 import * as doneData from "../assets/json/done.json";
-
-
+import * as eventImg from "../assets/images/event_imgs";
+import FileBase64 from "react-file-base64";
 
 const defaultOptions2 = {
   loop: false,
@@ -22,96 +21,211 @@ const defaultOptions2 = {
   }
 };
 
-class EventForm extends Component{
-
-
-  state = { title:"", location:"", date:"", time:"", done: false};
-
-  handleChange=event=>{
+class EventForm extends Component {
+  state = {
+    title: null,
+    location: null,
+    date: null,
+    time: null,
+    done: false,
+    img: null,
+    validated: [],
+    number_of_attendees: 0
+  };
+  setValidated = (boolean) => {
+    this.setState({ validated: boolean });
+  };
+  handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
-  onDrop=() =>{
-    this.setState({done:true})
-    setTimeout(() => this.props.createEvent({title:this.state.title, location:this.state.location, date:this.state.date, time:this.state.time}, this.props.history ),2000 )
+  handleSubmit = () => {
+    this.setState({ done: true });
+    console.log(this.state);
+    setTimeout(
+      () =>
+        this.props.createEvent(
+          {
+            title: this.state.title,
+            location: this.state.location,
+            date: this.state.date,
+            time: this.state.time,
+            img: this.state.img.base64,
+            number_of_attendees: this.state.number_of_attendees
+          },
+          this.props.history
+        ),
+      1000
+    );
+  };
 
-    
-    }
-    
-  setUploader=()=>{
-      if(!this.state.done){
-        return(
-          <FadeIn>
-          <h1 className="display-3">New Event</h1>
+  setUploader = () => {
+    const types = ["image/jpeg", "image/jpg", "image/png"];
 
-          <Form className="text-left" style={{fontSize:"1.6em"}}>
-          <Form.Group>
-            <Form.Label>Event Title</Form.Label>
-            <Form.Control name="title" onChange={this.handleChange} type="text" placeholder="What do you want to call this event?" />
-            <Form.Text className="text-muted">
-             Make it simple and clear!
-            </Form.Text>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Description</Form.Label>
-            <Form.Control name="description" onChange={this.handleChange} type="text" placeholder="Small description" />
-          </Form.Group>
-        
-          <Form.Group>
-            <Form.Label>Location</Form.Label>
-            <Form.Control name="location" onChange={this.handleChange} type="text" placeholder="Where did this event happened?" />
-          </Form.Group>
-          <Form.Group>
-          <Form.Label>Date
-          </Form.Label>
-          <Form.Control format="YYYY-MM-DD" name="date" type="date" onChange={this.handleChange} />
-          </Form.Group>
+    if (!this.state.done) {
+      return (
+        <FadeIn>
+          <h3 className="display-5">New Event</h3>
+
+          <Form className="text-left" style={{ fontSize: ".9em" }}>
             <Form.Group>
-            <Form.Label>Time</Form.Label>
-            <Form.Control name="time" type="time" onChange={this.handleChange} />
-          </Form.Group>
-          
-          <Button className="mt-5" variant="primary" size="lg" block onClick={()=>this.onDrop()} type="submit">
-            Create
-          </Button>
-        </Form>
-        </FadeIn>
-          
-        )}else {
-          return(
-            <FadeIn>
-            <div className="justify-content-center">
-            <Lottie options={defaultOptions2} height={700} width={700} />
+              <Form.Label>Event Title</Form.Label>
+              <Form.Control
+                required
+                name="title"
+                onChange={this.handleChange}
+                type="text"
+                placeholder="What do you want to call this event?"
+              />
+              <Form.Text className="text-muted">
+                Make it simple and clear!
+              </Form.Text>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Album Cover</Form.Label>
+              <div class="input-group mb-3">
+                {this.state.img ? (
+                  <p
+                    className="mt-3 ml-2 text-center"
+                    style={{ fontSize: 14, color: "#2DADF5" }}
+                  >
+                    {this.state.img.name} attached as cover image{" "}
+                    <button
+                      className="ml-2"
+                      onClick={() => this.setState({ img: null })}
+                      style={{ color: "red", borderRadius: 30 }}
+                    >
+                      delete?
+                    </button>
+                  </p>
+                ) : (
+                  <div class="uploader row align-items-center ml-1">
+                    <label
+                      className="btn btn-secondary mt-2"
+                      style={{ padding: 10 }}
+                    >
+                      <FileBase64
+                        multiple={false}
+                        onDone={(pic) => {
+                          if (types.includes(pic.type)) {
+                            this.setState({
+                              img: pic
+                            });
+                          } else {
+                            alert(`${pic.name} is an invaild type file`);
+                          }
+                        }}
+                      />
+                      Upload
+                    </label>
+                  </div>
+                )}
               </div>
-              </FadeIn>
-          )
-      }
+              <Form.Text className="text-muted">
+                Make your album look pretty
+              </Form.Text>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Number of Attendees</Form.Label>
+              <Form.Control
+                required
+                min="0"
+                name="number_of_attendees"
+                onChange={this.handleChange}
+                type="number"
+                placeholder="How many people attended this event?"
+              />
+              <Form.Text className="text-muted">Just an estimation!</Form.Text>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                name="description"
+                onChange={this.handleChange}
+                as="textarea"
+                rows="3"
+                placeholder="Small description"
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Location</Form.Label>
+              <Form.Control
+                required
+                name="location"
+                onChange={this.handleChange}
+                type="text"
+                placeholder="Where did this event happened?"
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Date</Form.Label>
+              <Form.Control
+                required
+                format="YYYY-MM-DD"
+                name="date"
+                type="date"
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Time</Form.Label>
+              <Form.Control
+                required
+                name="time"
+                type="time"
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Check
+                required
+                label="Agree to terms and conditions"
+                feedback="You must agree before submitting."
+              />
+            </Form.Group>
+
+            <Button
+              className="mt-5"
+              variant="primary"
+              size="lg"
+              block
+              type="submit"
+              onClick={this.handleSubmit}
+            >
+              Create
+            </Button>
+          </Form>
+        </FadeIn>
+      );
+    } else {
+      return (
+        <FadeIn>
+          <div className="justify-content-center">
+            <Lottie options={defaultOptions2} height={700} width={700} />
+          </div>
+        </FadeIn>
+      );
     }
-    
+  };
 
- 
-    
-  
-
-  render(){
+  render() {
     return (
-     
       <div className="container">
-        <div className="jumbotron">
-      
-        {this.setUploader()}
-  
-        </div>
-        </div>
+        <div className="jumbotron">{this.setUploader()}</div>
+      </div>
     );
   }
 }
 
-
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    createEvent: (event, history)=> dispatch(createEvent(event, history))
+    createEvent: (event, history) => dispatch(createEvent(event, history))
   };
 };
 
-export default connect(null, mapDispatchToProps)(EventForm);
+export default connect(
+  null,
+  mapDispatchToProps
+)(EventForm);

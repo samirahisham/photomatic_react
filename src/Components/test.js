@@ -39,11 +39,10 @@ class test extends Component {
       reader.onload = (readerEvt) => {
         const binaryString = readerEvt.target.result;
         picture.base64 = btoa(binaryString);
-        this.setState({pictures: [...this.state.pictures]});
+        this.setState({ pictures: [...this.state.pictures] });
       };
       reader.readAsBinaryString(picture);
     });
-    console.log("NEW PICS:  ", this.state);
   };
 
   postImages = () =>
@@ -53,13 +52,9 @@ class test extends Component {
     this.setState({ [e.target.name]: e.target.file });
   };
 
-  handleInit() {
-    console.log("FilePond instance has initialised", this.pond);
-  }
-
   render() {
-
-    if(this.state.pictures.every(picture => picture.base64)) this.postImages();
+    if (this.state.pictures.every((picture) => picture.base64))
+      this.postImages();
 
     return (
       <div className="App">
@@ -75,7 +70,6 @@ class test extends Component {
           acceptedFileTypes={["image/jpeg", "image/jpg", "image/png"]}
           //   server="/api/uploads"
           ref={(ref) => (this.pond = ref)}
-          oninit={() => this.handleInit()}
           onupdatefiles={(fileItems) => {
             // Set current file objects to this.state
             this.setState({

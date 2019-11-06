@@ -30,7 +30,6 @@ class LoginForm extends Component {
     if (this.props.user) return <Redirect to="/events" />;
 
     const errors = this.props.errors;
-    console.log(errors);
 
     return (
       <div className="bg">

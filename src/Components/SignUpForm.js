@@ -21,25 +21,29 @@ class SignUp extends Component {
   }
 
   changeHandler = (e) => {
-    if (e.target.name !== "img") {
-      this.setState({ [e.target.name]: e.target.value });
-    } else {
-      let formData = new FormData();
-      this.setState({ img: formData.append(e.target.value) });
-    }
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   submitHandler = (e) => {
     e.preventDefault();
 
-    this.props.signup(this.state, this.props.history);
+    this.props.signup(
+      {
+        username: this.state.username,
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        password: this.state.password,
+        img: this.state.img.base64
+      },
+      this.props.history
+    );
   };
 
   render() {
     if (this.props.user) return <Redirect to="/events" />;
     const types = ["image/jpeg", "image/jpg", "image/png"];
     const errors = this.props.errors;
-    console.log(errors);
+    console.log(this.state);
 
     return (
       <div className="bg navbg">

@@ -3,15 +3,19 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../redux/actions";
 import CreateEvent from "./EventForm";
+import FileBase64 from "react-file-base64";
+import editprofile from "../assets/images/editprofile.png";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFolderPlus, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFolderPlus,
+  faSignOutAlt,
+  faUpload
+} from "@fortawesome/free-solid-svg-icons";
+import { relative } from "path";
 
 class SideBar extends React.Component {
-  state = { collapsed: false, CreateShow: false };
-
-  logouut = () => {
-    this.props.logout();
-  };
+  state = { collapsed: false, CreateShow: false, hide: 0, profile: null };
 
   setCreateShow = (boolean) => {
     if (boolean === true) {
@@ -21,17 +25,74 @@ class SideBar extends React.Component {
     }
   };
 
+  mouseOut() {
+    this.setState({ hide: 0 });
+  }
+
+  mouseOver() {
+    this.setState({ hide: 1 });
+  }
+
   render() {
-    console.log(this.props.user);
+    const types = ["image/jpeg", "image/jpg", "image/png"];
+
     return (
       <div className="bg-light border-right toggle" id="sidebar-wrapper">
-        <div className="sidebar-heading">Hey User! </div>
+        <div className="sidebar-heading mb-2">
+          Hey {this.props.profile ? this.props.profile.user.first_name : null}
+        </div>
         <div className="list-group list-group-flush">
-          <img
-            src="http://svgur.com/i/65U.svg"
-            alt="profile_img"
-            style={{ height: 150, marginBottom: 25 }}
-          ></img>
+          <div
+            className="card text-white"
+            onMouseOut={() => this.mouseOut()}
+            onMouseOver={() => this.mouseOver()}
+            style={{ border: "none", backgroundColor: "transparent" }}
+          >
+            {this.props.profile ? (
+              <img
+                src={this.props.profile.image}
+                style={{
+                  height: 100,
+                  marginBottom: 25,
+                  width: 100,
+                  marginLeft: 70,
+                  borderRadius: 50
+                }}
+                class="card-img "
+                alt="profile_img"
+              />
+            ) : (
+              <img
+                src={`http://svgur.com/i/65U.svg`}
+                style={{ height: 100, marginBottom: 25, width: "auto" }}
+                class="card-img"
+                alt="profile_img"
+              />
+            )}
+            <div class="card-img-overlay" style={{ marginTop: 35 }}>
+              <label className="mt-2 text-light btn text-center pointer">
+                <FileBase64
+                  multiple={false}
+                  onDone={(pic) => {
+                    if (types.includes(pic.type)) {
+                      this.setState({
+                        img: pic
+                      });
+                    } else {
+                      alert(`${pic.name} is an invaild type file`);
+                    }
+                  }}
+                />
+                <img
+                  src={editprofile}
+                  className="card-img"
+                  style={{ width: 92, opacity: this.state.hide }}
+                  alt="profile_img"
+                />
+              </label>
+            </div>
+          </div>
+
           <Link to="/create">
             <div className="list-group-item list-group-item-action bg-primary text-light">
               <span className="mr-2">
@@ -53,7 +114,7 @@ class SideBar extends React.Component {
             Profile
           </Link>
           <button
-            onClick={() => this.logouut()}
+            onClick={() => this.props.logout()}
             className="list-group-item list-group-item-action bg-light"
             style={{ marginTop: 300 }}
           >
@@ -70,7 +131,8 @@ class SideBar extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.authReducer.user
+    user: state.authReducer.user,
+    profile: state.authReducer.profile
   };
 };
 

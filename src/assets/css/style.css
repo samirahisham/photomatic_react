@@ -713,3 +713,11 @@ header {
     margin-top: 2rem;
   }
 }
+
+.one-edge-shadow {
+  box-shadow: 0 8px 6px -6px black;
+}
+
+.pointer {
+  cursor: pointer;
+}
