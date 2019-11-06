@@ -10,6 +10,7 @@ const setCurrentUser = (token) => {
     if (token) {
       localStorage.setItem("token", token);
       instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+      dispatch(getProfile());
       user = jwt_decode(token);
     } else {
       localStorage.removeItem("token");
@@ -17,7 +18,7 @@ const setCurrentUser = (token) => {
       user = null;
     }
 
-    return dispatch({ type: actionTypes.SET_CURRENT_USER, payload: user });
+    dispatch({ type: actionTypes.SET_CURRENT_USER, payload: user });
   };
 };
 
@@ -48,7 +49,7 @@ export const signup = (userData, history) => {
 
       dispatch(setCurrentUser(user.access));
       dispatch(login(userData, history));
-      history.replace("/events");
+      history.replace("/new");
     } catch (error) {
       if (error.response) {
         console.error(error.response.data);
@@ -62,8 +63,8 @@ export const signup = (userData, history) => {
 
 export const logout = () => {
   return async (dispatch) => {
+    resetEvents();
     dispatch(setCurrentUser());
-    dispatch(resetEvents());
   };
 };
 
@@ -91,6 +92,7 @@ export const getProfile = () => async (dispatch) => {
   try {
     const res = await instance.get("profile/");
     const profile = res.data;
+    console.log(profile);
     dispatch({ type: actionTypes.GET_PROFILE, payload: profile });
   } catch (error) {
     console.error(error);

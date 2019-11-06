@@ -10,6 +10,7 @@ import "react-day-picker/lib/style.css";
 import * as legoData from "../assets/json/shutterloading.json";
 import * as doneData from "../assets/json/done.json";
 import * as eventImg from "../assets/images/event_imgs";
+import FileBase64 from "react-file-base64";
 
 const defaultOptions2 = {
   loop: false,
@@ -35,44 +36,38 @@ class EventForm extends Component {
     this.setState({ validated: boolean });
   };
   handleChange = (event) => {
-    if (event.target.name === "img") {
-      this.setState({ img: event.target.value });
-    }
     this.setState({ [event.target.name]: event.target.value });
   };
 
   handleSubmit = () => {
-    if (this.state.validated.length === 0) {
-      this.setState({ done: true });
-      setTimeout(
-        () =>
-          this.props.createEvent(
-            {
-              title: this.state.title,
-              location: this.state.location,
-              date: this.state.date,
-              time: this.state.time,
-              img: this.state.img,
-              number_of_attendees: this.state.number_of_attendees
-            },
-            this.props.history
-          ),
-        2000
-      );
-    }
+    this.setState({ done: true });
+    console.log(this.state);
+    setTimeout(
+      () =>
+        this.props.createEvent(
+          {
+            title: this.state.title,
+            location: this.state.location,
+            date: this.state.date,
+            time: this.state.time,
+            img: this.state.img.base64,
+            number_of_attendees: this.state.number_of_attendees
+          },
+          this.props.history
+        ),
+      1000
+    );
   };
 
   setUploader = () => {
+    const types = ["image/jpeg", "image/jpg", "image/png"];
+
     if (!this.state.done) {
       return (
         <FadeIn>
           <h3 className="display-5">New Event</h3>
 
-          <Form
-            className="text-left"
-            onSubmit={this.handleSubmit}
-            style={{ fontSize: ".9em" }}
-          >
+          <Form className="text-left" style={{ fontSize: ".9em" }}>
             <Form.Group>
               <Form.Label>Event Title</Form.Label>
               <Form.Control
@@ -89,20 +84,42 @@ class EventForm extends Component {
             <Form.Group>
               <Form.Label>Album Cover</Form.Label>
               <div class="input-group mb-3">
-                <div class="custom-file">
-                  <input
-                    type="file"
-                    required
-                    name="img"
-                    onChange={this.handleChange}
-                    className="custom-file-input"
-                    id="inputGroupFile01"
-                    aria-describedby="inputGroupFileAddon01"
-                  />
-                  <label class="custom-file-label" for="inputGroupFile01">
-                    Choose Images
-                  </label>
-                </div>
+                {this.state.img ? (
+                  <p
+                    className="mt-3 ml-2 text-center"
+                    style={{ fontSize: 14, color: "#2DADF5" }}
+                  >
+                    {this.state.img.name} attached as cover image{" "}
+                    <button
+                      className="ml-2"
+                      onClick={() => this.setState({ img: null })}
+                      style={{ color: "red", borderRadius: 30 }}
+                    >
+                      delete?
+                    </button>
+                  </p>
+                ) : (
+                  <div class="uploader row align-items-center ml-1">
+                    <label
+                      className="btn btn-secondary mt-2"
+                      style={{ padding: 10 }}
+                    >
+                      <FileBase64
+                        multiple={false}
+                        onDone={(pic) => {
+                          if (types.includes(pic.type)) {
+                            this.setState({
+                              img: pic
+                            });
+                          } else {
+                            alert(`${pic.name} is an invaild type file`);
+                          }
+                        }}
+                      />
+                      Upload
+                    </label>
+                  </div>
+                )}
               </div>
               <Form.Text className="text-muted">
                 Make your album look pretty
@@ -175,6 +192,7 @@ class EventForm extends Component {
               size="lg"
               block
               type="submit"
+              onClick={this.handleSubmit}
             >
               Create
             </Button>

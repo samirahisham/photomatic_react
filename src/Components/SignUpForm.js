@@ -27,7 +27,16 @@ class SignUp extends Component {
   submitHandler = (e) => {
     e.preventDefault();
 
-    this.props.signup(this.state, this.props.history);
+    this.props.signup(
+      {
+        username: this.state.username,
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        password: this.state.password,
+        img: this.state.img.base64
+      },
+      this.props.history
+    );
   };
 
   render() {

@@ -7,6 +7,7 @@ import main from "../assets/js/main";
 
 // Components
 import EventCard from "./EventCard";
+import Loading from "./Loading";
 
 class EventsList extends Component {
   //   state = {
@@ -26,27 +27,22 @@ class EventsList extends Component {
 
   render() {
     if (!this.props.user) return <Redirect to="/homepage" />;
+    if (this.props.user && this.props.events.length === 0)
+      return <Redirect to="/new" />;
 
     const eventCards = this.props.events.map((event) => (
       <EventCard key={event.id} event={event} />
     ));
 
+    if (this.props.loading) {
+      return <Loading />;
+    }
+
     return (
       <div className="container-fluid">
-        {!!this.props.events.length ? (
-          <div className="row" id="card-row">
-            {eventCards}
-          </div>
-        ) : (
-          <Link to="/create">
-            <button
-              style={{ marginTop: "10%" }}
-              className="btn btn-outline-primary btn-lg"
-            >
-              Create your first event's album now
-            </button>
-          </Link>
-        )}
+        <div className="row" id="card-row">
+          {eventCards}
+        </div>
       </div>
     );
   }
@@ -55,7 +51,8 @@ class EventsList extends Component {
 const mapStateToProps = (state) => {
   return {
     events: state.eventsRoot.events,
-    user: state.authReducer.user
+    user: state.authReducer.user,
+    loading: state.eventsRoot.loading
   };
 };
 

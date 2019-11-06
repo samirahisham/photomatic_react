@@ -120,7 +120,8 @@ class EventDetail extends Component {
             </Button>
 
             <ShareForm
-              eventID={this.props.match.params.eventID}
+              eventID={this.props.event ? this.props.event.event_ref : "n/a"}
+              sender={this.props.profile ? this.props.profile.email : "n/a"}
               show={this.state.ShareShow}
               onHide={() => this.setShareShow(false)}
             />
