@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 
- const ProductCard = (props) => {
+ const EventCard = (props) => {
      const event = props.event
     let date = moment(event.date_added).fromNow();
     return (
@@ -28,4 +28,4 @@ import moment from "moment";
 
 
 
-export default ProductCard;
+export default EventCard;

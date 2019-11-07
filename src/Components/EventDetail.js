@@ -78,7 +78,7 @@ class EventDetail extends Component {
             className="display-4 text-left mt-2 text-dark"
             style={{ marginLeft: 100, opacity: 1 }}
           >
-            {event ? event.title.toUpperCase() : null}
+            {/* {event ? event.title.toUpperCase() : ""} */}
           </h1>
           <p
             className="lead text-left text-muted"
@@ -119,12 +119,12 @@ class EventDetail extends Component {
               Share Event's Album
             </Button>
 
-            <ShareForm
+            {/* <ShareForm
               eventID={this.props.event ? this.props.event.event_ref : "n/a"}
               sender={this.props.profile ? this.props.profile.email : "n/a"}
               show={this.state.ShareShow}
               onHide={() => this.setShareShow(false)}
-            />
+            /> */}
           </ButtonToolbar>
         </div>
         <hr />
