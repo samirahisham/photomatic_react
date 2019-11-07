@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
 import { createEvent } from "../redux/actions";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
-import DayPickerInput from "react-day-picker/DayPickerInput";
 import "react-day-picker/lib/style.css";
-import * as legoData from "../assets/json/shutterloading.json";
 import * as doneData from "../assets/json/done.json";
-import * as eventImg from "../assets/images/event_imgs";
 import FileBase64 from "react-file-base64";
 
 const defaultOptions2 = {

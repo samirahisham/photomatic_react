@@ -1,41 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { ButtonToolbar, Button } from "react-bootstrap";
 import { fetchEventDetail } from "../redux/actions";
 import ShareForm from "./ShareForm";
 import UploadForm from "./UploadForm";
+import Loading from "./Loading";
 
 class EventDetail extends Component {
   state = {
     ShareShow: false,
-    UploadShow: false,
-    event: null,
-    photos: []
+    UploadShow: false
   };
 
   componentDidMount() {
     this.props.fetchEventDetail(parseInt(this.props.match.params.eventID));
-    const event = this.props.event;
-    if (event) {
-      this.setState({ event, photos: event.photos });
-    }
-    this.setState({ event });
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.event !== this.props.event) {
       this.props.fetchEventDetail(parseInt(this.props.match.params.eventID));
-      const event = this.props.event;
-      if (event) {
-        this.setState({ event, photos: event.photos });
-      }
-      this.setState({ event });
     }
   }
 
   setShareShow = (boolean) => {
-    if (boolean === true) {
+    if (boolean) {
       this.setState({ ShareShow: true });
     } else {
       this.setState({ ShareShow: false });
@@ -43,7 +32,7 @@ class EventDetail extends Component {
   };
 
   setUploadShow = (boolean) => {
-    if (boolean === true) {
+    if (boolean) {
       this.setState({ UploadShow: true });
     } else {
       this.setState({ UploadShow: false });
@@ -53,17 +42,24 @@ class EventDetail extends Component {
 
   render() {
     if (!this.props.user) return <Redirect to="/homepage" />;
-    const event = this.state.event;
+    const event = this.props.event;
     let photosList = [];
-    if (this.state.photos) {
-      photosList = this.state.photos.map((photo) => {
+
+    if (!this.props.event) {
+      return <Loading />;
+    }
+
+    if (this.props.event.photos) {
+      const photos = this.props.event.photos;
+
+      photosList = photos.map((photo) => {
         return (
           <div className="col-lg-3 col-md-4 col-6">
             <div className="d-block mb-4 h-100">
               <img
-                src={photo.photo}
+                src={photo}
                 className="img-fluid img-thumbnail one-edge-shadow"
-                alt={photo.photo}
+                alt={photo}
               />
             </div>
           </div>
@@ -78,20 +74,19 @@ class EventDetail extends Component {
             className="display-4 text-left mt-2 text-dark"
             style={{ marginLeft: 100, opacity: 1 }}
           >
-            {/* {event ? event.title.toUpperCase() : ""} */}
+            {event.title.toUpperCase()}
           </h1>
           <p
             className="lead text-left text-muted"
             style={{ marginLeft: 100, marginTop: -25 }}
           >
-            Location: {event ? event.location : null} | Date:{" "}
-            {event ? event.date : null} at {event ? event.time : null}
+            Location: {event.location} | Date: {event.date} at {event.time}
           </p>
           <p
             className="text-left text-monospace text-primary"
             style={{ marginLeft: 100, marginTop: -20 }}
           >
-            {event ? event.description : null}
+            {event.description}
           </p>
         </div>
         <div className="row justify-content-end  mt-4 mb-4 mr-5">
@@ -104,7 +99,7 @@ class EventDetail extends Component {
               Upload Photos
             </Button>
             <UploadForm
-              eventID={this.props.match.params.eventID}
+              id={event.id}
               show={this.state.UploadShow}
               onHide={() => this.setUploadShow(false)}
             />
@@ -119,12 +114,13 @@ class EventDetail extends Component {
               Share Event's Album
             </Button>
 
-            {/* <ShareForm
-              eventID={this.props.event ? this.props.event.event_ref : "n/a"}
+            <ShareForm
+              ref={event.event_ref}
               sender={this.props.profile ? this.props.profile.email : "n/a"}
+              id={event.id}
               show={this.state.ShareShow}
               onHide={() => this.setShareShow(false)}
-            /> */}
+            />
           </ButtonToolbar>
         </div>
         <hr />

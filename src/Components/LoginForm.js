@@ -66,7 +66,6 @@ class LoginForm extends Component {
                         id="inputPassword"
                         className="form-control"
                         placeholder="Password"
-                        placeholder="Password"
                         name="password"
                         onChange={this.changeHandler}
                         required
