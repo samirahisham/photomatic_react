@@ -27,12 +27,14 @@ class EventsList extends Component {
 
   render() {
     if (!this.props.user) return <Redirect to="/homepage" />;
-    if (this.props.user && this.props.events.length === 0)
-      return <Redirect to="/new" />;
+    // if (this.props.user && this.props.events.length === 0)
+    //   // return <Redirect to="/new" />;
 
     const eventCards = this.props.events.map((event) => (
       <EventCard key={event.id} event={event} />
     ));
+   
+
 
     if (this.props.loading) {
       return <Loading />;

@@ -49,14 +49,14 @@ class App extends Component {
             <div class="container-fluid">
               <Switch>
                 <Redirect exact from="/" to="/events" />
+                <Route path="/events/:eventID" component={EventDetail} />
                 <Route path="/events" component={EventsList} />
-                <Route path="/new" component={NewUserPage} />
                 <Route path="/test" component={test} />
                 <Route path="/homepage" component={HomePage} />
                 <Route path="/login" component={LoginForm} />
                 <Route path="/signup" component={SignUpForm} />
                 <Route path="/create" component={EventForm} />
-                <Route path="/events/:eventID" component={EventDetail} />
+                <Route path="/new" component={NewUserPage} />
               </Switch>
             </div>
           </div>
