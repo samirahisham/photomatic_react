@@ -46,7 +46,7 @@ class App extends Component {
                 </li>
               </ul>
             </nav>
-            <div class="container-fluid">
+            <div className="container-fluid">
               <Switch>
                 <Redirect exact from="/" to="/events" />
                 <Route path="/events/:eventID" component={EventDetail} />
@@ -66,7 +66,7 @@ class App extends Component {
       return (
         <div className="App d-flex" id="wrapper">
           <div id="page-content-wrapper">
-            <div class="container-fluid">
+            <div className="container-fluid">
               <Switch>
                 <Redirect exact from="/" to="/events" />
                 <Route path="/new" component={NewUserPage} />

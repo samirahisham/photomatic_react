@@ -3,7 +3,8 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   events: [],
   event: null,
-  loading: true
+  loading: true,
+  eventLoading: true
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,7 +28,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         event: event,
-        loading: false
+        eventLoading: false
       };
     case actionTypes.RESET_EVENTS:
       return {

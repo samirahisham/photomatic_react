@@ -15,12 +15,7 @@ class EventDetail extends Component {
 
   componentDidMount() {
     this.props.fetchEventDetail(parseInt(this.props.match.params.eventID));
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.event !== this.props.event) {
-      this.props.fetchEventDetail(parseInt(this.props.match.params.eventID));
-    }
+    console.log("HERE");
   }
 
   setShareShow = (boolean) => {
@@ -45,7 +40,7 @@ class EventDetail extends Component {
     const event = this.props.event;
     let photosList = [];
 
-    if (!this.props.event) {
+    if (this.props.loading) {
       return <Loading />;
     }
 
@@ -57,9 +52,9 @@ class EventDetail extends Component {
           <div className="col-lg-3 col-md-4 col-6">
             <div className="d-block mb-4 h-100">
               <img
-                src={photo}
+                src={photo.photo}
                 className="img-fluid img-thumbnail one-edge-shadow"
-                alt={photo}
+                alt={photo.photo}
               />
             </div>
           </div>
@@ -140,7 +135,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     event: state.eventsRoot.event,
-    user: state.authReducer.user
+    user: state.authReducer.user,
+    loading: state.eventsRoot.eventLoading
   };
 };
 

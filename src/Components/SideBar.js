@@ -63,7 +63,7 @@ class SideBar extends Component {
                 alt="profile_img"
               />
             )}
-            <div class="card-img-overlay" style={{ marginTop: 35 }}>
+            <div className="card-img-overlay" style={{ marginTop: 35 }}>
               <label className="mt-2 text-light btn text-center pointer">
                 <FileBase64
                   multiple={false}

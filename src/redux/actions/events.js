@@ -50,7 +50,7 @@ export const sendEmails = (content) => async (dispatch) => {
 
 export const uploadPics = (event) => async (dispatch) => {
   try {
-    const res = await instance.post(`uploads/${event.eventID}`, event);
+    const res = await instance.post(`uploads/`, event);
     dispatch({ type: actionTypes.ADD_PICS, payload: res.data });
   } catch (error) {
     console.error(error);

@@ -79,7 +79,7 @@ class EventForm extends Component {
             </Form.Group>
             <Form.Group>
               <Form.Label>Album Cover</Form.Label>
-              <div class="input-group mb-3">
+              <div className="input-group mb-3">
                 {this.state.img ? (
                   <p
                     className="mt-3 ml-2 text-center"
@@ -95,7 +95,7 @@ class EventForm extends Component {
                     </button>
                   </p>
                 ) : (
-                  <div class="uploader row align-items-center ml-1">
+                  <div className="uploader row align-items-center ml-1">
                     <label
                       className="btn btn-secondary mt-2"
                       style={{ padding: 10 }}

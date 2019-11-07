@@ -128,7 +128,7 @@ class SignUp extends Component {
                           </button>
                         </p>
                       ) : (
-                        <div class="uploader row align-items-center ml-1">
+                        <div className="uploader row align-items-center ml-1">
                           <label
                             className="btn btn-outline-secondary mt-2"
                             style={{ padding: 10 }}

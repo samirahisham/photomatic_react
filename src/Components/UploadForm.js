@@ -48,7 +48,7 @@ const defaultOptions2 = {
 
 class UploadForm extends Component {
   state = {
-    pictures: [],
+    photos: [],
     id: this.props.id,
     done: undefined,
     loading: undefined,
@@ -57,12 +57,12 @@ class UploadForm extends Component {
 
   uploadImg = () => {
     this.props.uploadPics({
-      pictures: this.state.pictures,
+      photos: this.state.photos,
       id: this.state.id
     });
 
     let seeingTime = 1000;
-    let timeload = seeingTime + 100 * this.state.pictures.length;
+    let timeload = seeingTime + 100 * this.state.photos.length;
     let doneTime = timeload + 1000;
 
     setTimeout(() => this.setState({ loading: true }), seeingTime);
@@ -71,27 +71,27 @@ class UploadForm extends Component {
   };
 
   changeHandler = (file) => {
-    const pictures = this.state.pictures.filter((picture) => {
+    const photos = this.state.photos.filter((picture) => {
       return picture.name !== file.file.name;
     });
 
-    this.setState({ pictures });
+    this.setState({ photos });
   };
 
   setUploader = () => {
     if (!this.state.done && !this.state.loading) {
       return (
         <>
-          {this.state.pictures.length !== 0 ? (
+          {this.state.photos.length !== 0 ? (
             <>
-              <div class="uploader d-flex justify-content-end mr-5 align-items-center row">
+              <div className="uploader d-flex justify-content-end mr-5 align-items-center row">
                 <label className="btn btn-primary justify-content-center align-items-center ">
                   <FileBase64
                     multiple={true}
                     onDone={(pic) => {
                       pic.forEach((picture) => {
                         this.setState({
-                          pictures: this.state.pictures.concat(picture)
+                          photos: this.state.photos.concat(picture)
                         });
                       });
                     }}
@@ -108,8 +108,8 @@ class UploadForm extends Component {
               </div>
               <br></br>
               <FilePond
-                files={this.state.pictures.map((picture) => picture.file)}
-                name="pictures"
+                files={this.state.photos.map((picture) => picture.file)}
+                name="photos"
                 allowImageCrop={true}
                 allowMultiple={true}
                 maxFiles={10}
@@ -130,9 +130,9 @@ class UploadForm extends Component {
                 <FileBase64
                   multiple={true}
                   onDone={(pic) => {
-                    pic.forEach((picture) => {
+                    pic.forEach((photos) => {
                       this.setState({
-                        pictures: this.state.pictures.concat(picture)
+                        photos: this.state.photos.concat(photos)
                       });
                     });
                   }}
@@ -189,7 +189,7 @@ class UploadForm extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    uploadPics: (pictures) => dispatch(uploadPics(pictures))
+    uploadPics: (photos) => dispatch(uploadPics(photos))
   };
 };
 
