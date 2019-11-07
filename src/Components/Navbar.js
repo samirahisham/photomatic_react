@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 const NavBar = () => {
@@ -50,12 +50,9 @@ const NavBar = () => {
                     </Link>{" "}
                   </li>
                   <li className="nav-item">
-                    <a
-                      href="#"
-                      className="btn btn-outline-light my-3 my-sm-0 ml-lg-3"
-                    >
+                    <p className="btn btn-outline-light my-3 my-sm-0 ml-lg-3">
                       Attendee? Download the app
-                    </a>
+                    </p>
                   </li>
                 </ul>
               </div>

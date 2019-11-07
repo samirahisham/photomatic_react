@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-
-// Scripts
-import main from "../assets/js/main";
+import { Redirect } from "react-router-dom";
 
 // Components
 import EventCard from "./EventCard";
@@ -27,14 +24,12 @@ class EventsList extends Component {
 
   render() {
     if (!this.props.user) return <Redirect to="/homepage" />;
-    // if (this.props.user && this.props.events.length === 0)
-    //   // return <Redirect to="/new" />;
+    if (this.props.user && this.props.events.length === 0)
+      return <Redirect to="/new" />;
 
     const eventCards = this.props.events.map((event) => (
       <EventCard key={event.id} event={event} />
     ));
-   
-
 
     if (this.props.loading) {
       return <Loading />;

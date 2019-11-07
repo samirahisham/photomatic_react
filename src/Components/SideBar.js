@@ -1,20 +1,14 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../redux/actions";
-import CreateEvent from "./EventForm";
 import FileBase64 from "react-file-base64";
 import editprofile from "../assets/images/editprofile.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFolderPlus,
-  faSignOutAlt,
-  faUpload
-} from "@fortawesome/free-solid-svg-icons";
-import { relative } from "path";
+import { faFolderPlus, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
-class SideBar extends React.Component {
+class SideBar extends Component {
   state = { collapsed: false, CreateShow: false, hide: 0, profile: null };
 
   setCreateShow = (boolean) => {

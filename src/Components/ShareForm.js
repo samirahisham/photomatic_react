@@ -7,8 +7,8 @@ class ShareForm extends Component {
   state = {
     sender: null,
     emails: null,
-    event_id: this.props.eventID,
-    id: this.props.match.params.eventID
+    event_id: this.props.ref,
+    id: this.props.id
   };
 
   changeHandler = (e) => {

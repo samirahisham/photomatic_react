@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import FileBase64 from "react-file-base64";
 
@@ -49,7 +49,7 @@ const defaultOptions2 = {
 class UploadForm extends Component {
   state = {
     pictures: [],
-    eventID: this.props.eventID,
+    id: this.props.id,
     done: undefined,
     loading: undefined,
     rejections: []
@@ -58,7 +58,7 @@ class UploadForm extends Component {
   uploadImg = () => {
     this.props.uploadPics({
       pictures: this.state.pictures,
-      eventID: this.state.eventID
+      id: this.state.id
     });
 
     let seeingTime = 1000;
@@ -165,7 +165,6 @@ class UploadForm extends Component {
   rejections = [];
 
   render() {
-    console.log(this.state.pictures);
     return (
       <Modal
         {...this.props}
