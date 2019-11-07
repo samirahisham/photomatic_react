@@ -11,13 +11,13 @@ const reducer = (state = initialState, action) => {
       const user = action.payload;
       return {
         ...state,
-        user: user
+        user
       };
     case actionTypes.GET_PROFILE:
       const profile = action.payload;
       return {
         ...state,
-        profile: profile
+        profile
       };
     default:
       return state;

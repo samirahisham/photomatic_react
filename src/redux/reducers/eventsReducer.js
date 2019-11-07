@@ -9,7 +9,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_EVENTS:
+    case actionTypes.GET_EVENTS:
       const events = action.payload;
       return {
         ...state,
@@ -23,7 +23,7 @@ const reducer = (state = initialState, action) => {
         events: state.events.concat(new_event),
         loading: false
       };
-    case actionTypes.FETCH_EVENT_DETAIL:
+    case actionTypes.GET_EVENT_DETAIL:
       const event = action.payload;
       return {
         ...state,
@@ -35,6 +35,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         events: [],
         loading: false
+      };
+    case actionTypes.EVENT_LOADING:
+      return {
+        ...state,
+        eventLoading: true
       };
     default:
       return state;

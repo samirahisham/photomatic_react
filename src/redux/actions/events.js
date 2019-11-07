@@ -5,7 +5,7 @@ export const fetchEvents = () => async (dispatch) => {
   try {
     const res = await instance.get("events/");
     const events = res.data;
-    dispatch({ type: actionTypes.FETCH_EVENTS, payload: events });
+    dispatch({ type: actionTypes.GET_EVENTS, payload: events });
   } catch (error) {
     console.error(error);
   }
@@ -13,15 +13,17 @@ export const fetchEvents = () => async (dispatch) => {
 
 export const resetEvents = () => {
   return {
-    type: actionTypes.RESET_EVENTS
+    type: actionTypes.GET_EVENTS,
+    payload: []
   };
 };
 
 export const fetchEventDetail = (eventID) => async (dispatch) => {
+  dispatch({ type: actionTypes.EVENT_LOADING });
   try {
     const res = await instance.get(`events/${eventID}/`);
     const event = res.data;
-    dispatch({ type: actionTypes.FETCH_EVENT_DETAIL, payload: event });
+    dispatch({ type: actionTypes.GET_EVENT_DETAIL, payload: event });
   } catch (error) {
     console.error(error);
   }

@@ -7,7 +7,7 @@ class ShareForm extends Component {
   state = {
     sender: null,
     emails: null,
-    event_id: this.props.ref,
+    event_id: this.props.event_ref,
     id: this.props.id
   };
 

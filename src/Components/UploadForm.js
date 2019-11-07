@@ -67,7 +67,7 @@ class UploadForm extends Component {
 
     setTimeout(() => this.setState({ loading: true }), seeingTime);
     setTimeout(() => this.setState({ done: true, loading: false }), doneTime);
-    setTimeout(() => window.location.reload(), doneTime + 1000);
+    // setTimeout(() => window.location.reload(), doneTime + 1000);
   };
 
   changeHandler = (file) => {
