@@ -41,7 +41,7 @@ a {
 a:hover,
 a:focus {
   color: #1544c4;
-  text-decoration: none;
+  text-decoration-line: none;
 }
 
 h1 {
@@ -699,6 +699,7 @@ header {
   margin: 0 0.3rem;
   border-radius: 5px;
   color: #f4c9e2;
+  text-decoration: none;
   transition: all 0.3s ease;
 }
 

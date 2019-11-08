@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { createEvent } from "../redux/actions";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
-import "react-day-picker/lib/style.css";
 import * as doneData from "../assets/json/done.json";
 import FileBase64 from "react-file-base64";
 

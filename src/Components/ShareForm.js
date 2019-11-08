@@ -25,7 +25,7 @@ class ShareForm extends Component {
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
-            Event ID: {this.props.eventID}
+            Event ID: {this.props.event_ref}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

@@ -102,7 +102,7 @@ class SideBar extends Component {
             My Albums
           </Link>
           <Link
-            to="/"
+            to="/profile"
             className="list-group-item list-group-item-action bg-light"
           >
             Profile

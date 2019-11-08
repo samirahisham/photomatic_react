@@ -208,3 +208,7 @@ body {
 input[type="file" i] {
   display: none;
 }
+
+a:hover {
+  text-decoration: none;
+}
