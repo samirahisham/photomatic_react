@@ -8,19 +8,15 @@ class NewUserPage extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.user !== prevProps.user) {
       if (this.props.user === null) {
-        console.log("in here");
         this.props.history.replace("/homepage");
       }
     }
   }
   render() {
-    console.log("In render");
     if (!this.props.user) {
-      console.log("in first condition");
       return <Redirect to="/homepage" />;
     }
     if (this.props.user && this.props.events.length > 0) {
-      console.log("in second condition");
       return <Redirect to="/events" />;
     }
 

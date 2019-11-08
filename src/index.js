@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
-import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import { Provider } from "react-redux";
 
 // Store
@@ -12,6 +11,7 @@ import store from "./redux";
 import App from "./App";
 
 // Styling
+import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/themify-icons.css";
 import "./assets/css/owl.carousel.min.css";

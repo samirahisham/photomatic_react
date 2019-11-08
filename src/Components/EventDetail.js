@@ -34,9 +34,9 @@ const EventDetail = ({
 
   const photos = event.photos || [];
 
-  const photosList = photos.map((photo) => {
+  const photosList = photos.map((photo, idx) => {
     return (
-      <div className="col-lg-3 col-md-4 col-6">
+      <div className="col-lg-3 col-md-4 col-6" key={idx}>
         <div className="d-block mb-4 h-100">
           <img
             src={photo.photo}

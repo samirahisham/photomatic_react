@@ -43,7 +43,6 @@ class SignUp extends Component {
     if (this.props.user) return <Redirect to="/events" />;
     const types = ["image/jpeg", "image/jpg", "image/png"];
     const errors = this.props.errors;
-    console.log(this.state);
 
     return (
       <div className="bg navbg">

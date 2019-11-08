@@ -93,7 +93,7 @@ export const getProfile = () => async (dispatch) => {
   try {
     const res = await instance.get("profile/");
     const profile = res.data;
-    console.log(profile);
+
     dispatch({ type: actionTypes.GET_PROFILE, payload: profile });
   } catch (error) {
     console.error(error);
