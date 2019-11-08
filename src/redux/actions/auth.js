@@ -11,6 +11,7 @@ const setCurrentUser = (token) => {
       localStorage.setItem("token", token);
       instance.defaults.headers.common.Authorization = `Bearer ${token}`;
       dispatch(getProfile());
+      dispatch(fetchEvents());
       user = jwt_decode(token);
     } else {
       localStorage.removeItem("token");
@@ -63,7 +64,7 @@ export const signup = (userData, history) => {
 
 export const logout = () => {
   return async (dispatch) => {
-    resetEvents();
+    dispatch(resetEvents());
     dispatch(setCurrentUser());
   };
 };
@@ -92,7 +93,7 @@ export const getProfile = () => async (dispatch) => {
   try {
     const res = await instance.get("profile/");
     const profile = res.data;
-    console.log(profile);
+
     dispatch({ type: actionTypes.GET_PROFILE, payload: profile });
   } catch (error) {
     console.error(error);

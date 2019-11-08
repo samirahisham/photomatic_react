@@ -13,7 +13,7 @@ const defaultOptions = {
 
 const Loading = () => (
   <div
-    class="d-flex justify-content-center align-items-center"
+    className="d-flex justify-content-center align-items-center"
     style={{ marginTop: 70 }}
   >
     <Lottie options={defaultOptions} height={300} width={300} />

@@ -52,14 +52,14 @@ class SideBar extends Component {
                   marginLeft: 70,
                   borderRadius: 50
                 }}
-                class="card-img "
+                className="card-img "
                 alt="profile_img"
               />
             ) : (
               <img
                 src={`http://svgur.com/i/65U.svg`}
                 style={{ height: 100, marginBottom: 25, width: "auto" }}
-                class="card-img"
+                className="card-img"
                 alt="profile_img"
               />
             )}

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import FileBase64 from "react-file-base64";
 
-import { uploadPics } from "../redux/actions/";
+import { uploadpics } from "../redux/actions/";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
 
@@ -55,8 +56,13 @@ class UploadForm extends Component {
     rejections: []
   };
 
+  resetUploads = () => {
+    this.setState({ photos: [], done: false });
+    this.props.onHide();
+  };
+
   uploadImg = () => {
-    this.props.uploadPics({
+    this.props.uploadpics({
       photos: this.state.photos,
       id: this.state.id
     });
@@ -67,7 +73,7 @@ class UploadForm extends Component {
 
     setTimeout(() => this.setState({ loading: true }), seeingTime);
     setTimeout(() => this.setState({ done: true, loading: false }), doneTime);
-    setTimeout(() => window.location.reload(), doneTime + 1000);
+    setTimeout(() => this.resetUploads(), seeingTime + doneTime + 1000);
   };
 
   changeHandler = (file) => {
@@ -125,7 +131,7 @@ class UploadForm extends Component {
               ></FilePond>
             </>
           ) : (
-            <div class="uploader d-flex justify-content-end mr-5 align-items-center row">
+            <div className="uploader d-flex justify-content-end mr-5 align-items-center row">
               <label className="btn btn-primary justify-content-center align-items-center ">
                 <FileBase64
                   multiple={true}
@@ -147,7 +153,7 @@ class UploadForm extends Component {
     } else if (!!this.state.loading) {
       return (
         <FadeIn>
-          <div class="d-flex justify-content-center align-items-center">
+          <div className="d-flex justify-content-center align-items-center">
             <Lottie options={defaultOptions} height={400} width={400} />
           </div>
         </FadeIn>
@@ -155,7 +161,7 @@ class UploadForm extends Component {
     } else {
       return (
         <FadeIn>
-          <div class="d-flex justify-content-center align-items-center">
+          <div className="d-flex justify-content-center align-items-center">
             <Lottie options={defaultOptions2} height={400} width={400} />
           </div>
         </FadeIn>
@@ -165,6 +171,8 @@ class UploadForm extends Component {
   rejections = [];
 
   render() {
+    if (!this.props.user) return <Redirect to="/homepage" />;
+
     return (
       <Modal
         {...this.props}
@@ -186,14 +194,19 @@ class UploadForm extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    user: state.authReducer.user
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    uploadPics: (photos) => dispatch(uploadPics(photos))
+    uploadpics: (photos) => dispatch(uploadpics(photos))
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(UploadForm);

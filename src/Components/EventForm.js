@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+
 import { connect } from "react-redux";
 import { createEvent } from "../redux/actions";
 import FadeIn from "react-fade-in";
@@ -25,9 +27,11 @@ class EventForm extends Component {
     time: null,
     done: false,
     img: null,
+    imgerror: "none",
     validated: [],
     number_of_attendees: 0
   };
+
   setValidated = (boolean) => {
     this.setState({ validated: boolean });
   };
@@ -36,23 +40,27 @@ class EventForm extends Component {
   };
 
   handleSubmit = () => {
-    this.setState({ done: true });
-    console.log(this.state);
-    setTimeout(
-      () =>
-        this.props.createEvent(
-          {
-            title: this.state.title,
-            location: this.state.location,
-            date: this.state.date,
-            time: this.state.time,
-            img: this.state.img.base64,
-            number_of_attendees: this.state.number_of_attendees
-          },
-          this.props.history
-        ),
-      1000
-    );
+    if (!this.state.img) {
+      this.setState({ imgerror: "" });
+    } else {
+      this.setState({ done: true });
+      this.setState({ imgerror: "none" });
+      setTimeout(
+        () =>
+          this.props.createEvent(
+            {
+              title: this.state.title,
+              location: this.state.location,
+              date: this.state.date,
+              time: this.state.time,
+              img: this.state.img.base64,
+              number_of_attendees: this.state.number_of_attendees
+            },
+            this.props.history
+          ),
+        1000
+      );
+    }
   };
 
   setUploader = () => {
@@ -101,6 +109,7 @@ class EventForm extends Component {
                       style={{ padding: 10 }}
                     >
                       <FileBase64
+                        required
                         multiple={false}
                         onDone={(pic) => {
                           if (types.includes(pic.type)) {
@@ -117,8 +126,11 @@ class EventForm extends Component {
                   </div>
                 )}
               </div>
-              <Form.Text className="text-muted">
-                Make your album look pretty
+              <Form.Text
+                className="text-danger"
+                style={{ display: this.state.imgerror, fontSize: 15 }}
+              >
+                Please upload an album cover!
               </Form.Text>
             </Form.Group>
             <Form.Group>
@@ -181,18 +193,13 @@ class EventForm extends Component {
                 feedback="You must agree before submitting."
               />
             </Form.Group>
-
-            <Button
-              className="mt-5"
-              variant="primary"
-              size="lg"
-              block
-              type="submit"
-              onClick={this.handleSubmit}
-            >
-              Create
-            </Button>
           </Form>
+          <button
+            className="mt-5 btn btn-primary btn-block"
+            onClick={() => this.handleSubmit()}
+          >
+            Create
+          </button>
         </FadeIn>
       );
     } else {
@@ -207,6 +214,8 @@ class EventForm extends Component {
   };
 
   render() {
+    if (!this.props.user) return <Redirect to="/homepage" />;
+
     return (
       <div className="container">
         <div className="jumbotron">{this.setUploader()}</div>
@@ -215,6 +224,11 @@ class EventForm extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.authReducer.user
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     createEvent: (event, history) => dispatch(createEvent(event, history))
@@ -222,6 +236,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(EventForm);

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
@@ -6,44 +6,26 @@ import { Redirect } from "react-router-dom";
 import EventCard from "./EventCard";
 import Loading from "./Loading";
 
-class EventsList extends Component {
-  //   state = {
-  //     query: "",
-  //   };
+const EventsList = ({ user, events, loading }) => {
+  const [query, setQuery] = useState("");
 
-  //   setQeury = query => this.setState({ query });
+  if (!user) return <Redirect to="/homepage" />;
+  if (user && events.length === 0) return <Redirect to="/new" />;
 
-  //   filterEvents = () => {
-  //     const query = this.state.query.toLowerCase();
-  //     return this.props.events.filter(event => {
-  //       return (
-  //         event.title.toLowerCase().includes(query)
-  //       );
-  //     });
-  //   };
+  if (loading) return <Loading />;
 
-  render() {
-    if (!this.props.user) return <Redirect to="/homepage" />;
-    if (this.props.user && this.props.events.length === 0)
-      return <Redirect to="/new" />;
+  const eventCards = events
+    .filter((event) => event.title.toLowerCase().includes(query.toLowerCase()))
+    .map((event) => <EventCard key={event.id} event={event} />);
 
-    const eventCards = this.props.events.map((event) => (
-      <EventCard key={event.id} event={event} />
-    ));
-
-    if (this.props.loading) {
-      return <Loading />;
-    }
-
-    return (
-      <div className="container-fluid">
-        <div className="row" id="card-row">
-          {eventCards}
-        </div>
+  return (
+    <div className="container-fluid">
+      <div className="row" id="card-row">
+        {eventCards}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {

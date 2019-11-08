@@ -1,5 +1,6 @@
-export const FETCH_EVENTS = "FETCH_EVENTS";
-export const FETCH_EVENT_DETAIL = "FETCH_EVENT_DETAIL";
+export const GET_EVENTS = "GET_EVENTS";
+export const GET_EVENT_DETAIL = "GET_EVENT_DETAIL";
+export const EVENT_LOADING = "EVENT_LOADING";
 export const CREATE_EVENT = "CREATE_EVENT";
 export const ADD_PHOTOS = "ADD_PHOTOS";
 export const SET_ERRORS = "SET_ERRORS";

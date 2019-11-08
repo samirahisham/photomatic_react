@@ -15,7 +15,6 @@ import EventsList from "./Components/EventsList";
 import SideBar from "./Components/SideBar";
 import EventDetail from "./Components/EventDetail";
 import EventForm from "./Components/EventForm";
-// import ShareForm from "./Components/ShareForm"
 import logo from "./assets/logo.png";
 
 import NewUserPage from "./Components/NewUserPage";
@@ -25,12 +24,16 @@ class App extends Component {
     main();
   }
 
-  isUser = () => {
-    if (this.props.user) {
-      return (
-        <div className="App d-flex" id="wrapper">
-          <SideBar />
-          <div id="page-content-wrapper">
+  componentDidUpdate() {
+    main();
+  }
+
+  render() {
+    return (
+      <div className="App d-flex" id="wrapper">
+        {this.props.user && <SideBar />}
+        <div id="page-content-wrapper">
+          {this.props.user && (
             <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom navbg">
               <button className="btn btn-outline-light" id="menu-toggle">
                 Menu
@@ -46,47 +49,23 @@ class App extends Component {
                 </li>
               </ul>
             </nav>
-            <div className="container-fluid">
-              <Switch>
-                <Redirect exact from="/" to="/events" />
-                <Route path="/events/:eventID" component={EventDetail} />
-                <Route path="/events" component={EventsList} />
-
-                <Route path="/homepage" component={HomePage} />
-                <Route path="/login" component={LoginForm} />
-                <Route path="/signup" component={SignUpForm} />
-                <Route path="/create" component={EventForm} />
-                <Route path="/new" component={NewUserPage} />
-              </Switch>
-            </div>
+          )}
+          <div className="container-fluid">
+            <Switch>
+              {/* All these components need to internally check for the user */}
+              <Redirect exact from="/" to="/events" />
+              <Route path="/events/:eventID" component={EventDetail} />
+              <Route path="/events" component={EventsList} />
+              <Route path="/create" component={EventForm} />
+              <Route path="/new" component={NewUserPage} />
+              <Route path="/homepage" component={HomePage} />
+              <Route path="/login" component={LoginForm} />
+              <Route path="/signup" component={SignUpForm} />
+            </Switch>
           </div>
         </div>
-      );
-    } else {
-      return (
-        <div className="App d-flex" id="wrapper">
-          <div id="page-content-wrapper">
-            <div className="container-fluid">
-              <Switch>
-                <Redirect exact from="/" to="/events" />
-                <Route path="/new" component={NewUserPage} />
-                <Route path="/homepage" component={HomePage} />
-                <Route path="/login" component={LoginForm} />
-                <Route path="/signup" component={SignUpForm} />
-                {/* <Route path="/events/:eventID" component={EventDetail} /> */}
-                {/* <Route path="/events/:eventID/share" component={ShareForm} /> */}
-                <Route path="/events/" component={EventsList} />
-                {/* <Route path="/events/create" component={EventForm} /> */}
-              </Switch>
-            </div>
-          </div>
-        </div>
-      );
-    }
-  };
-
-  render() {
-    return this.isUser();
+      </div>
+    );
   }
 }
 

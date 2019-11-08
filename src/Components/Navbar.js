@@ -32,22 +32,19 @@ const NavBar = () => {
               <div className="collapse navbar-collapse" id="navbar">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
-                    {" "}
                     <Link to="/signup" className="nav-link active">
                       SIGN UP<span className="sr-only">(current)</span>
-                    </Link>{" "}
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    {" "}
                     <Link to="/login" className="nav-link">
                       SIGN IN
-                    </Link>{" "}
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    {" "}
                     <Link to="/about" className="nav-link">
                       ABOUT US
-                    </Link>{" "}
+                    </Link>
                   </li>
                   <li className="nav-item">
                     <p className="btn btn-outline-light my-3 my-sm-0 ml-lg-3">
