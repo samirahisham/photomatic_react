@@ -7,7 +7,7 @@ export const SET_ERRORS = "SET_ERRORS";
 export const RESET_EVENTS = "RESET_EVENTS";
 export const ADD_PICS = "ADD_PICS";
 export const GET_PROFILE = "GET_PROFILE";
-
+export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const SEND_EMAILS = "SEND_EMAILS";
 
 export const CHANGE_PHOTO = "CHANGE_PHOTO";

@@ -93,8 +93,18 @@ export const getProfile = () => async (dispatch) => {
   try {
     const res = await instance.get("profile/");
     const profile = res.data;
-
+    console.log(profile);
     dispatch({ type: actionTypes.GET_PROFILE, payload: profile });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateProfile = (newimage) => async (dispatch) => {
+  try {
+    const res = await instance.get("profile/update/", newimage);
+    const img = res.data;
+    dispatch({ type: actionTypes.UPDATE_PROFILE, payload: img });
   } catch (error) {
     console.error(error);
   }

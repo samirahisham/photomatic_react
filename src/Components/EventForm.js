@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { createEvent } from "../redux/actions";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
-import "react-day-picker/lib/style.css";
 import * as doneData from "../assets/json/done.json";
 import FileBase64 from "react-file-base64";
 
@@ -26,6 +25,7 @@ class EventForm extends Component {
     date: null,
     time: null,
     done: false,
+    description: null,
     img: null,
     imgerror: "none",
     validated: [],
@@ -51,6 +51,7 @@ class EventForm extends Component {
             {
               title: this.state.title,
               location: this.state.location,
+              description: this.state.description,
               date: this.state.date,
               time: this.state.time,
               img: this.state.img.base64,

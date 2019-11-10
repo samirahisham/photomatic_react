@@ -24,7 +24,7 @@ class NewUserPage extends Component {
       <Link to="/create">
         <FadeIn>
           <button
-            style={{ marginTop: "20%", marginLeft: "30%" }}
+            style={{ marginTop: "20%", marginLeft: "40%" }}
             className="btn btn-outline-primary btn-lg d-flex justify-content-center align-items-center"
           >
             Create Your First Album Now

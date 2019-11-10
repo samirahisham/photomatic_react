@@ -6,15 +6,18 @@ const EventCard = (props) => {
   const event = props.event;
   let date = moment(event.date_added).fromNow();
   return (
-    <Link id="card-name" to={`/events/${event.id}`}>
-      <div className="card text-center ml-3 mt-3 mb-3 mr-3">
-        <div className="card-header">{`${event.location} - ${event.date}`}</div>
-        <div className="card-body">
-          <h5 className="card-title">{event.title.toUpperCase()}</h5>
+    <div className="col-lg-4 col-sm-6 mb-3 mt-5">
+      <Link to={`/events/${event.id}`}>
+        <div className=" eventlistshadow card h-100">
+          <img className="card-img-top" src={event.img} alt={event.img} />
+          <div className="card-body">
+            <h4 className="card-title">{event.title.toUpperCase()}</h4>
+            <p className="card-text">{`${event.location} - ${event.date}`}</p>
+            <div className="text-muted">Added {date}</div>
+          </div>
         </div>
-        <div className="card-footer text-muted">Added {date}</div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 

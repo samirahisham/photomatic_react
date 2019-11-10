@@ -1,4 +1,10 @@
-export { login, logout, signup, checkForExpiredToken } from "./auth";
+export {
+  login,
+  logout,
+  signup,
+  checkForExpiredToken,
+  updateProfile
+} from "./auth";
 
 export { setErrors, resetErrors } from "./errors";
 

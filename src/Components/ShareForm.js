@@ -2,13 +2,40 @@ import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { sendEmails } from "../redux/actions";
+import Lottie from "react-lottie";
+
+import * as donesend from "../assets/json/sendemail.json";
+
+const defaultOptions = {
+  loop: false,
+  autoplay: true,
+  animationData: donesend.default,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice"
+  }
+};
 
 class ShareForm extends Component {
   state = {
-    sender: null,
     emails: null,
-    event_id: this.props.event_ref,
-    id: this.props.id
+    event_ref: this.props.event_ref,
+    id: this.props.id,
+    done: false
+  };
+
+  resetShare = () => {
+    this.props.onHide();
+    this.setState({ emails: null, done: false });
+  };
+
+  sendIt = () => {
+    this.setState({ done: true });
+    this.props.sendEmails({
+      emails: this.state.emails,
+      event_ref: this.state.event_ref,
+      id: this.state.id
+    });
+    setTimeout(() => this.resetShare(), 3500);
   };
 
   changeHandler = (e) => {
@@ -25,38 +52,41 @@ class ShareForm extends Component {
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
-            Event ID: {this.props.eventID}
+            Event ID: {this.props.event_ref.toUpperCase()}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>
-            Please type in the email address(s) of the attendees and they will
-            get access via your Event ID
-          </p>
-          <h6>Enter Email Address(s)</h6>
-          <form className="form-signin">
-            <div className="form-label-group">
-              <input
-                type="email"
-                id="inputUser"
-                className="form-control"
-                placeholder="Email"
-                name="email"
-                onChange={this.changeHandler}
-                required
-                autofocus
-              />
-              <label for="inputUser">Email</label>
+          {!this.state.done ? (
+            <>
+              <p>
+                Please type in the email address(s) of the attendees and they
+                will get access via your Event ID
+              </p>
+              <h6>Enter Email Address(s)</h6>
+              <form className="form-signin">
+                <div className="form-label-group">
+                  <input
+                    type="email"
+                    id="inputUser"
+                    className="form-control"
+                    placeholder="Email"
+                    name="emails"
+                    onChange={this.changeHandler}
+                    required
+                    autofocus
+                  />
+                  <label for="inputUser">Email</label>
+                </div>
+              </form>
+            </>
+          ) : (
+            <div className="d-flex justify-content-center align-items-center">
+              <Lottie options={defaultOptions} height={400} width={400} />
             </div>
-          </form>
+          )}
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            variant="warning"
-            onClick={() =>
-              this.props.onHide() && this.props.sendEmails(this.state)
-            }
-          >
+          <Button variant="warning" onClick={() => this.sendIt()}>
             Send
           </Button>
           <Button variant="secondary" onClick={this.props.onHide}>

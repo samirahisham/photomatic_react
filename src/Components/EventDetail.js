@@ -51,30 +51,21 @@ const EventDetail = ({
   return (
     <>
       <div className="container-fluid mt-3">
-        <h1
-          className="display-4 text-left mt-2 text-dark"
-          style={{ marginLeft: 100, opacity: 1 }}
-        >
+        <h1 className="display-4 text-left mt-2 text-dark mb-2">
           {event.title.toUpperCase()}
         </h1>
-        <p
-          className="lead text-left text-muted"
-          style={{ marginLeft: 100, marginTop: -25 }}
-        >
-          Location: {event.location} | Date: {event.date} at {event.time}
+        <p className="text-left text-muted">
+          Location: {event.location} | Date: {event.date} at {event.time} |
+          Expected Number of Attendees: {event.number_of_attendees}
         </p>
-        <p
-          className="text-left text-monospace text-primary"
-          style={{ marginLeft: 100, marginTop: -20 }}
-        >
-          {event.description}
-        </p>
+        <br></br>
+        <p className="text-left text-primary">{event.description}</p>
       </div>
       <div className="row justify-content-end  mt-4 mb-4 mr-5">
         <ButtonToolbar>
           <Button
             variant="outline-primary mr-5"
-            size="lg"
+            size="m"
             onClick={() => setUploadShow(!uploadShow)}
           >
             Upload Photos
@@ -89,7 +80,7 @@ const EventDetail = ({
         <ButtonToolbar>
           <Button
             variant="outline-warning"
-            size="lg"
+            size="m"
             onClick={() => setShareShow(!shareShow)}
           >
             Share Event's Album

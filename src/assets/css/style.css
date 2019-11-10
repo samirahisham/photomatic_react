@@ -41,9 +41,17 @@ a {
 a:hover,
 a:focus {
   color: #1544c4;
-  text-decoration: none;
+  text-decoration-line: none !important;
 }
 
+.eventlistshadow {
+  transition: 0.4s all;
+  box-shadow: 3px 3px 4px 3px #ccc; /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+.eventlistshadow:hover {
+  box-shadow: 3px 3px 9px 6px #ccc; /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
 h1 {
   font-size: 60px;
   font-weight: 300;
@@ -699,6 +707,7 @@ header {
   margin: 0 0.3rem;
   border-radius: 5px;
   color: #f4c9e2;
+  text-decoration: none;
   transition: all 0.3s ease;
 }
 

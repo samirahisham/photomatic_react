@@ -20,9 +20,7 @@ const EventsList = ({ user, events, loading }) => {
 
   return (
     <div className="container-fluid">
-      <div className="row" id="card-row">
-        {eventCards}
-      </div>
+      <div className="row">{eventCards}</div>
     </div>
   );
 };

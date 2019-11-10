@@ -42,17 +42,19 @@ export const createEvent = (event, history) => async (dispatch) => {
 
 export const sendEmails = (content) => async (dispatch) => {
   try {
-    const res = await instance.post(`events/${content.id}/share`, content);
+    const res = await instance.post(`events/${content.id}/share/`, content);
     dispatch({ type: actionTypes.SEND_EMAILS, payload: res.data });
   } catch (error) {
     console.error(error);
   }
 };
 
-export const uploadpics = (event) => async (dispatch) => {
+export const uploadpics = (newphotos) => async (dispatch) => {
   try {
-    const res = await instance.post(`uploads/`, event);
-    dispatch({ type: actionTypes.ADD_PICS, payload: res.data });
+    const res = await instance.post(`uploads/`, newphotos);
+    const newevent = res.data;
+    console.log(newevent);
+    dispatch({ type: actionTypes.ADD_PICS, payload: newevent });
   } catch (error) {
     console.error(error);
   }

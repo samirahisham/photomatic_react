@@ -38,12 +38,14 @@ class LoginForm extends Component {
             <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
               <div className="card card-signin my-5">
                 <div className="card-body">
-                  <img
-                    src={logo}
-                    className="img-fluid mb-4"
-                    style={{ height: 60 }}
-                    alt="logo"
-                  />
+                  <Link to="/homepage">
+                    <img
+                      src={logo}
+                      className="img-fluid mb-4"
+                      style={{ height: 60 }}
+                      alt="logo"
+                    />
+                  </Link>
                   <h5 className="card-title text-center">Sign In</h5>
                   <form className="form-signin" onSubmit={this.submitHandler}>
                     <div className="form-label-group">

@@ -18,6 +18,7 @@ import EventForm from "./Components/EventForm";
 import logo from "./assets/logo.png";
 
 import NewUserPage from "./Components/NewUserPage";
+import ProfilePage from "./Components/ProfilePage";
 
 class App extends Component {
   componentDidMount() {
@@ -56,6 +57,7 @@ class App extends Component {
               <Redirect exact from="/" to="/events" />
               <Route path="/events/:eventID" component={EventDetail} />
               <Route path="/events" component={EventsList} />
+              <Route path="/profile" component={ProfilePage} />
               <Route path="/create" component={EventForm} />
               <Route path="/new" component={NewUserPage} />
               <Route path="/homepage" component={HomePage} />
