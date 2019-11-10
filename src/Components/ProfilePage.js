@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { ButtonToolbar, Button } from "react-bootstrap";
-import ShareForm from "./ShareForm";
-import UploadForm from "./UploadForm";
+
 import Loading from "./Loading";
 
 const ProfilePage = ({ events, loading, user, profile }) => {

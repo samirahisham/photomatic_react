@@ -14,28 +14,30 @@ class HomePage extends Component {
         <div className="container-fluid">
           <NavBar />
           <header classNasme="" id="home">
-            <div style={{ marginTop: 100 }}>
-              <h2 className="display-4">Optimize Your Photoshoots</h2>
+            <div style={{ marginTop: 50 }}>
+              <h2 className="display-4">Snap it, Scan it, Loading, Fetch it</h2>
               <p classNasme="tagline">
-                The amazing solution for photographers after shooting photos in
-                a event. Just upload your event's photos and let the attendees
-                find their images via our Face Recognition App.{" "}
+                Fotomatic uses state-of-the-art facial recognition technology
+                that allows you to get your own personal photos.{" "}
               </p>
-            </div>
-            <div classNasme="img-holder mt-3">
-              <img src={phone} alt="phone" classNasme="img-fluid" />
-            </div>
-          </header>
-        </div>
-        <div className="container-fluid">
-          <header classNasme="" id="about">
-            <div style={{ marginTop: 100 }}>
-              <h2 className="display-4">About us</h2>
-              <p classNasme="tagline">
-                The amazing solution for photographers after shooting photos in
-                a event. Just upload your event's photos and let the attendees
-                find their images via our Face Recognition App.{" "}
-              </p>
+              <div className="row mt-5">
+                <div className="col">
+                  <h2 className="">Fotomatic Website</h2>
+                  <p classNasme="tagline">
+                    A website that is tailored to allow photographers to
+                    distribute their photographs.{" "}
+                  </p>
+                </div>
+                <div className="col">
+                  <h2 className="">Fotomatic App</h2>
+                  <p classNasme="tagline">
+                    A client-facing mobile application that allows users to scan
+                    their faces and to get the photos they are featured in,
+                    using custom facial recognition technology. It will be
+                    compatible with IOS and Android smartphones.
+                  </p>
+                </div>
+              </div>
             </div>
           </header>
         </div>

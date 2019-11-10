@@ -41,6 +41,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         eventLoading: true
       };
+    case actionTypes.ADD_PICS:
+      const newevent = action.payload;
+      return {
+        ...state,
+        event: newevent
+      };
     default:
       return state;
   }

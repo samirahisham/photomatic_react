@@ -14,10 +14,16 @@ const reducer = (state = initialState, action) => {
         user
       };
     case actionTypes.GET_PROFILE:
-      const profile = action.payload;
+      const newprofile = action.payload;
       return {
         ...state,
-        profile
+        profile: newprofile
+      };
+    case actionTypes.UPDATE_PROFILE:
+      const image = action.payload;
+      return {
+        ...state,
+        profile: { ...state.profile, image: image.image }
       };
     default:
       return state;

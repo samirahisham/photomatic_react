@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { logout } from "../redux/actions";
+import { logout, updateProfile } from "../redux/actions";
 import FileBase64 from "react-file-base64";
 import editprofile from "../assets/images/editprofile.png";
 
@@ -69,9 +69,7 @@ class SideBar extends Component {
                   multiple={false}
                   onDone={(pic) => {
                     if (types.includes(pic.type)) {
-                      this.setState({
-                        img: pic
-                      });
+                      this.props.updateProfile(pic.base64);
                     } else {
                       alert(`${pic.name} is an invaild type file`);
                     }
@@ -132,7 +130,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    updateProfile: (newimg) => dispatch(updateProfile(newimg))
   };
 };
 

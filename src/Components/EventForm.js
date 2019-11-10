@@ -25,6 +25,7 @@ class EventForm extends Component {
     date: null,
     time: null,
     done: false,
+    description: null,
     img: null,
     imgerror: "none",
     validated: [],
@@ -50,6 +51,7 @@ class EventForm extends Component {
             {
               title: this.state.title,
               location: this.state.location,
+              description: this.state.description,
               date: this.state.date,
               time: this.state.time,
               img: this.state.img.base64,
