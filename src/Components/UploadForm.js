@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import FileBase64 from "react-file-base64";
 
-import { uploadpics } from "../redux/actions/";
+import { uploadPics } from "../redux/actions/";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
 
@@ -57,23 +57,25 @@ class UploadForm extends Component {
   };
 
   resetUploads = () => {
-    this.setState({ photos: [], done: false });
+    this.setState({ photos: [] });
     this.props.onHide();
   };
 
-  uploadImg = () => {
-    this.props.uploadpics({
+  handleSubmitUpload = () => {
+    this.props.uploadPics({
       photos: this.state.photos,
       id: this.state.id
     });
-
     let seeingTime = 1000;
     let timeload = seeingTime + 100 * this.state.photos.length;
     let doneTime = timeload + 1000;
 
     setTimeout(() => this.setState({ loading: true }), seeingTime);
     setTimeout(() => this.setState({ done: true, loading: false }), doneTime);
-    setTimeout(() => this.resetUploads(), seeingTime + doneTime + 1000);
+    setTimeout(() => this.resetUploads(), seeingTime + doneTime);
+  
+ 
+   
   };
 
   changeHandler = (file) => {
@@ -91,6 +93,7 @@ class UploadForm extends Component {
           {this.state.photos.length !== 0 ? (
             <>
               <div className="uploader d-flex justify-content-end mr-5 align-items-center row">
+                
                 <label className="btn btn-primary justify-content-center align-items-center ">
                   <FileBase64
                     multiple={true}
@@ -107,7 +110,7 @@ class UploadForm extends Component {
                 <button
                   className="btn btn-green justify-content-center align-items-center ml-3 "
                   style={{ marginBottom: 7 }}
-                  onClick={() => this.uploadImg()}
+                  onClick={() => this.handleSubmitUpload()}
                 >
                   Upload
                 </button>
@@ -119,7 +122,6 @@ class UploadForm extends Component {
                 allowImageCrop={true}
                 allowMultiple={true}
                 maxFiles={10}
-                // onupdatefiles={(e) => }
                 onremovefile={(error, file) => this.changeHandler(file)}
                 instantUpload={false}
                 allowFileEncode={true}
@@ -131,7 +133,9 @@ class UploadForm extends Component {
               ></FilePond>
             </>
           ) : (
-            <div className="uploader d-flex justify-content-end mr-5 align-items-center row">
+            <>
+            <p>Please Upload your pictures here </p>
+            <div className="uploader d-flex  justify-content-end mr-5 align-items-center row">
               <label className="btn btn-primary justify-content-center align-items-center ">
                 <FileBase64
                   multiple={true}
@@ -147,6 +151,7 @@ class UploadForm extends Component {
               </label>
               <br></br>
             </div>
+            </>
           )}
         </>
       );
@@ -159,6 +164,7 @@ class UploadForm extends Component {
         </FadeIn>
       );
     } else {
+      
       return (
         <FadeIn>
           <div className="d-flex justify-content-center align-items-center">
@@ -186,8 +192,6 @@ class UploadForm extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Please Upload your pictures here </p>
-          {/* {this.getAlert()} */}
           <div>{this.setUploader()}</div>
         </Modal.Body>
       </Modal>
@@ -196,13 +200,13 @@ class UploadForm extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.authReducer.user
+    user: state.authReducer.user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    uploadpics: (photos) => dispatch(uploadpics(photos))
+    uploadPics: (photos) => dispatch(uploadPics(photos))
   };
 };
 

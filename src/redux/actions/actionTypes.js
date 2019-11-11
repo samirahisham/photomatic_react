@@ -10,6 +10,8 @@ export const GET_PROFILE = "GET_PROFILE";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const SEND_EMAILS = "SEND_EMAILS";
 
+export const UPLOAD_LOADING = "UPLOAD_LOADING";
+
 export const CHANGE_PHOTO = "CHANGE_PHOTO";
 
 export const SET_CURRENT_USER = "SET_CURRENT_USER";

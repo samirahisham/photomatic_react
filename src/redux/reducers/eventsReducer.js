@@ -4,7 +4,8 @@ const initialState = {
   events: [],
   event: null,
   loading: true,
-  eventLoading: true
+  eventLoading: true,
+  uploadloading:false
 };
 
 const reducer = (state = initialState, action) => {
@@ -45,8 +46,15 @@ const reducer = (state = initialState, action) => {
       const newevent = action.payload;
       return {
         ...state,
-        event: newevent
+        event: newevent,
+        uploadloading:false
       };
+    case actionTypes.UPLOAD_LOADING:
+      
+        return {
+          ...state,
+          uploadloading: true
+        };
     default:
       return state;
   }

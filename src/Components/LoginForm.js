@@ -57,9 +57,9 @@ class LoginForm extends Component {
                         name="username"
                         onChange={this.changeHandler}
                         required
-                        autofocus
+                        autoFocus
                       />
-                      <label for="inputEmail">Email</label>
+                      <label htmlFor="inputEmail">Email</label>
                     </div>
 
                     <div className="form-label-group">

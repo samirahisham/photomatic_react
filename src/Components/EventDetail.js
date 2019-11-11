@@ -11,6 +11,7 @@ const EventDetail = ({
   match,
   event,
   loading,
+  processing,
   user,
   profile,
   fetchEventDetail
@@ -58,34 +59,44 @@ const EventDetail = ({
           Location: {event.location} | Date: {event.date} at {event.time} |
           Expected Number of Attendees: {event.number_of_attendees}
         </p>
+
         <br></br>
-        <p className="text-left text-primary">{event.description}</p>
+        <p className="text-left text-dark">{event.description}</p>
       </div>
       <div className="row justify-content-end  mt-4 mb-4 mr-5">
+        <h5 className="text-primary" style={{marginRight:578}}>{event.photos.length} Photos in this album</h5>
         <ButtonToolbar>
-          <Button
-            variant="outline-primary mr-5"
-            size="m"
-            onClick={() => setUploadShow(!uploadShow)}
-          >
-            Upload Photos
-          </Button>
-          <UploadForm
-            id={event.id}
-            show={uploadShow}
-            onHide={() => setUploadShow(!uploadShow)}
-          />
+          {!!processing ? <></>: <Button
+          variant="outline-primary mr-5"
+          size="m"
+          onClick={() => setUploadShow(!uploadShow)}
+        >
+          Upload Photos
+        </Button>
+          }
+        <UploadForm
+          id={event.id}
+          show={uploadShow}
+          onHide={() => setUploadShow(!uploadShow)}
+        />
+         
         </ButtonToolbar>
 
         <ButtonToolbar>
-          <Button
+          {!!processing? <Button
+            variant="outline-warning"
+            size="m"
+          
+          >
+            Please Wait..
+          </Button>: <Button
             variant="outline-warning"
             size="m"
             onClick={() => setShareShow(!shareShow)}
           >
             Share Event's Album
           </Button>
-
+          }
           <ShareForm
             event_ref={event.event_ref}
             sender={profile ? profile.email : "n/a"}
@@ -113,7 +124,8 @@ const mapStateToProps = (state) => {
     event: state.eventsRoot.event,
     user: state.authReducer.user,
     profile: state.authReducer.profile,
-    loading: state.eventsRoot.eventLoading
+    loading: state.eventsRoot.eventLoading,
+    processing:state.eventsRoot.uploadloading
   };
 };
 

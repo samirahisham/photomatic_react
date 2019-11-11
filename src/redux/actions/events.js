@@ -49,10 +49,12 @@ export const sendEmails = (content) => async (dispatch) => {
   }
 };
 
-export const uploadpics = (newphotos) => async (dispatch) => {
+export const uploadPics = (newphotos) => async (dispatch) => {
+  dispatch(fetchEventDetail(newphotos.id))
+  dispatch({ type: actionTypes.UPLOAD_LOADING})
   try {
     const res = await instance.post(`uploads/`, newphotos);
-    const newevent = res.data;
+    const newevent = res.data
     console.log(newevent);
     dispatch({ type: actionTypes.ADD_PICS, payload: newevent });
   } catch (error) {

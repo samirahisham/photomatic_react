@@ -41,16 +41,6 @@ const NavBar = () => {
                       SIGN IN
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link to="/about" className="nav-link">
-                      ABOUT US
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <p className="btn btn-outline-light my-3 my-sm-0 ml-lg-3">
-                      Attendee? Download the app
-                    </p>
-                  </li>
                 </ul>
               </div>
             </nav>

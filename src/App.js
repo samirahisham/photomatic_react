@@ -64,6 +64,11 @@ class App extends Component {
               <Route path="/login" component={LoginForm} />
               <Route path="/signup" component={SignUpForm} />
             </Switch>
+            <footer id="sticky-footer " className="fixed-bottom py-1 bg-dark text-white-50">
+         <div className="container-fluid text-center">
+           <small>Copyright &copy; Fotomatic 2019</small>
+            </div>
+          </footer>
           </div>
         </div>
       </div>
