@@ -51,8 +51,8 @@ class UploadForm extends Component {
   state = {
     photos: [],
     id: this.props.id,
-    done: undefined,
-    loading: undefined,
+    done: false,
+    loading: false,
     rejections: []
   };
 
@@ -72,14 +72,11 @@ class UploadForm extends Component {
 
     setTimeout(() => this.setState({ loading: true }), seeingTime);
     setTimeout(() => this.setState({ done: true, loading: false }), doneTime);
-    setTimeout(() => this.resetUploads(), seeingTime + doneTime);
-  
- 
-   
+    setTimeout(() => this.resetUploads(), seeingTime + doneTime + 1000);
   };
 
-  changeHandler = (file) => {
-    const photos = this.state.photos.filter((picture) => {
+  changeHandler = file => {
+    const photos = this.state.photos.filter(picture => {
       return picture.name !== file.file.name;
     });
 
@@ -93,12 +90,11 @@ class UploadForm extends Component {
           {this.state.photos.length !== 0 ? (
             <>
               <div className="uploader d-flex justify-content-end mr-5 align-items-center row">
-                
                 <label className="btn btn-primary justify-content-center align-items-center ">
                   <FileBase64
                     multiple={true}
-                    onDone={(pic) => {
-                      pic.forEach((picture) => {
+                    onDone={pic => {
+                      pic.forEach(picture => {
                         this.setState({
                           photos: this.state.photos.concat(picture)
                         });
@@ -117,7 +113,7 @@ class UploadForm extends Component {
               </div>
               <br></br>
               <FilePond
-                files={this.state.photos.map((picture) => picture.file)}
+                files={this.state.photos.map(picture => picture.file)}
                 name="photos"
                 allowImageCrop={true}
                 allowMultiple={true}
@@ -134,23 +130,23 @@ class UploadForm extends Component {
             </>
           ) : (
             <>
-            <p>Please Upload your pictures here </p>
-            <div className="uploader d-flex  justify-content-end mr-5 align-items-center row">
-              <label className="btn btn-primary justify-content-center align-items-center ">
-                <FileBase64
-                  multiple={true}
-                  onDone={(pic) => {
-                    pic.forEach((photos) => {
-                      this.setState({
-                        photos: this.state.photos.concat(photos)
+              <p>Please Upload your pictures here </p>
+              <div className="uploader d-flex  justify-content-end mr-5 align-items-center row">
+                <label className="btn btn-primary justify-content-center align-items-center ">
+                  <FileBase64
+                    multiple={true}
+                    onDone={pic => {
+                      pic.forEach(photos => {
+                        this.setState({
+                          photos: this.state.photos.concat(photos)
+                        });
                       });
-                    });
-                  }}
-                />
-                Browse Photos
-              </label>
-              <br></br>
-            </div>
+                    }}
+                  />
+                  Browse Photos
+                </label>
+                <br></br>
+              </div>
             </>
           )}
         </>
@@ -164,7 +160,6 @@ class UploadForm extends Component {
         </FadeIn>
       );
     } else {
-      
       return (
         <FadeIn>
           <div className="d-flex justify-content-center align-items-center">
@@ -178,6 +173,8 @@ class UploadForm extends Component {
 
   render() {
     if (!this.props.user) return <Redirect to="/homepage" />;
+    console.log("loading ", this.state.loading);
+    console.log("done ", this.state.done);
 
     return (
       <Modal
@@ -198,15 +195,15 @@ class UploadForm extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    user: state.authReducer.user,
+    user: state.authReducer.user
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    uploadPics: (photos) => dispatch(uploadPics(photos))
+    uploadPics: photos => dispatch(uploadPics(photos))
   };
 };
 

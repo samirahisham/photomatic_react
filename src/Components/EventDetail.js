@@ -64,39 +64,42 @@ const EventDetail = ({
         <p className="text-left text-dark">{event.description}</p>
       </div>
       <div className="row justify-content-end  mt-4 mb-4 mr-5">
-        <h5 className="text-primary" style={{marginRight:578}}>{event.photos.length} Photos in this album</h5>
+        <h5 className="text-primary" style={{ marginRight: 578 }}>
+          {event.photos.length} Photos in this album
+        </h5>
         <ButtonToolbar>
-          {!!processing ? <></>: <Button
-          variant="outline-primary mr-5"
-          size="m"
-          onClick={() => setUploadShow(!uploadShow)}
-        >
-          Upload Photos
-        </Button>
-          }
-        <UploadForm
-          id={event.id}
-          show={uploadShow}
-          onHide={() => setUploadShow(!uploadShow)}
-        />
-         
+          {!!processing ? (
+            <></>
+          ) : (
+            <Button
+              variant="outline-primary mr-5"
+              size="m"
+              onClick={() => setUploadShow(!uploadShow)}
+            >
+              Upload Photos
+            </Button>
+          )}
+          <UploadForm
+            id={event.id}
+            show={uploadShow}
+            onHide={() => setUploadShow(!uploadShow)}
+          />
         </ButtonToolbar>
 
         <ButtonToolbar>
-          {!!processing? <Button
-            variant="outline-warning"
-            size="m"
-          
-          >
-            Please Wait..
-          </Button>: <Button
-            variant="outline-warning"
-            size="m"
-            onClick={() => setShareShow(!shareShow)}
-          >
-            Share Event's Album
-          </Button>
-          }
+          {!!processing ? (
+            <Button variant="outline-warning" size="m">
+              Please Wait..
+            </Button>
+          ) : (
+            <Button
+              variant="outline-warning"
+              size="m"
+              onClick={() => setShareShow(!shareShow)}
+            >
+              Share Event's Album
+            </Button>
+          )}
           <ShareForm
             event_ref={event.event_ref}
             sender={profile ? profile.email : "n/a"}
@@ -113,19 +116,19 @@ const EventDetail = ({
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    fetchEventDetail: (event) => dispatch(fetchEventDetail(event))
+    fetchEventDetail: event => dispatch(fetchEventDetail(event))
   };
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     event: state.eventsRoot.event,
     user: state.authReducer.user,
     profile: state.authReducer.profile,
     loading: state.eventsRoot.eventLoading,
-    processing:state.eventsRoot.uploadloading
+    processing: state.eventsRoot.uploadloading
   };
 };
 
