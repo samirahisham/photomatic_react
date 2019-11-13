@@ -70,7 +70,7 @@ class SignUp extends Component {
                         name="username"
                         onChange={this.changeHandler}
                         required
-                        autofocus
+                        autoFocus
                       />
                       <label for="inputUser">Email</label>
                     </div>
@@ -83,7 +83,7 @@ class SignUp extends Component {
                         name="first_name"
                         onChange={this.changeHandler}
                         required
-                        autofocus
+                        autoFocus
                       />
                       <label for="inputFname">First Name</label>
                     </div>
@@ -96,7 +96,7 @@ class SignUp extends Component {
                         name="last_name"
                         onChange={this.changeHandler}
                         required
-                        autofocus
+                        autoFocus
                       />
                       <label for="inputLname">Last Name</label>
                     </div>

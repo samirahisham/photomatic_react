@@ -3,7 +3,8 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import NavBar from "./Navbar";
-import phone from "../assets/images/iphonex.png";
+import background from "../assets/images/backg.png";
+import background2 from "../assets/images/backg2.png";
 
 class HomePage extends Component {
   render() {
@@ -14,8 +15,8 @@ class HomePage extends Component {
         <div className="container-fluid">
           <NavBar />
           <header classNasme="" id="home">
-            <div style={{ marginTop: 50 }}>
-              <h2 className="display-4">Snap it, Scan it, Loading, Fetch it</h2>
+            <div style={{ marginTop: 20 }}>
+              <h2 className="">Snap it, Scan it, Loading, Fetch it</h2>
               <p classNasme="tagline">
                 Fotomatic uses state-of-the-art facial recognition technology
                 that allows you to get your own personal photos.{" "}
@@ -27,6 +28,7 @@ class HomePage extends Component {
                     A website that is tailored to allow photographers to
                     distribute their photographs.{" "}
                   </p>
+                <img className="img-fluid" src={background2} alt={"background2"} />
                 </div>
                 <div className="col">
                   <h2 className="">Fotomatic App</h2>
@@ -36,6 +38,7 @@ class HomePage extends Component {
                     using custom facial recognition technology. It will be
                     compatible with IOS and Android smartphones.
                   </p>
+                <img className="img-fluid" src={background} alt={"background"} />
                 </div>
               </div>
             </div>

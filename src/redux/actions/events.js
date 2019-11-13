@@ -1,7 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import instance from "./instance";
 
-export const fetchEvents = () => async (dispatch) => {
+export const fetchEvents = () => async dispatch => {
   try {
     const res = await instance.get("events/");
     const events = res.data;
@@ -18,7 +18,7 @@ export const resetEvents = () => {
   };
 };
 
-export const fetchEventDetail = (eventID) => async (dispatch) => {
+export const fetchEventDetail = eventID => async dispatch => {
   dispatch({ type: actionTypes.EVENT_LOADING });
   try {
     const res = await instance.get(`events/${eventID}/`);
@@ -29,7 +29,7 @@ export const fetchEventDetail = (eventID) => async (dispatch) => {
   }
 };
 
-export const createEvent = (event, history) => async (dispatch) => {
+export const createEvent = (event, history) => async dispatch => {
   try {
     const res = await instance.post("events/create/", event);
     dispatch({ type: actionTypes.CREATE_EVENT, payload: res.data });
@@ -40,7 +40,7 @@ export const createEvent = (event, history) => async (dispatch) => {
   }
 };
 
-export const sendEmails = (content) => async (dispatch) => {
+export const sendEmails = content => async dispatch => {
   try {
     const res = await instance.post(`events/${content.id}/share/`, content);
     dispatch({ type: actionTypes.SEND_EMAILS, payload: res.data });
@@ -49,7 +49,8 @@ export const sendEmails = (content) => async (dispatch) => {
   }
 };
 
-export const uploadpics = (newphotos) => async (dispatch) => {
+export const uploadPics = newphotos => async dispatch => {
+  dispatch({ type: actionTypes.UPLOAD_LOADING });
   try {
     const res = await instance.post(`uploads/`, newphotos);
     const newevent = res.data;

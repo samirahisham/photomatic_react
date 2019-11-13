@@ -14,5 +14,5 @@ export {
   sendEmails,
   createEvent,
   resetEvents,
-  uploadpics
+  uploadPics
 } from "./events";

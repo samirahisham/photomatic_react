@@ -73,7 +73,7 @@ class ShareForm extends Component {
                     name="emails"
                     onChange={this.changeHandler}
                     required
-                    autofocus
+                    autoFocus
                   />
                   <label for="inputUser">Email</label>
                 </div>

@@ -197,7 +197,7 @@ class EventForm extends Component {
           </Form>
           <button
             className="mt-5 btn btn-primary btn-block"
-            onClick={() => this.handleSubmit()}
+            onClick={() => this.state.number_of_attendees === 0? alert("Add number of attendees"):this.handleSubmit()}
           >
             Create
           </button>

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import FileBase64 from "react-file-base64";
 
-import { uploadpics } from "../redux/actions/";
+import { uploadPics } from "../redux/actions/";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
 
@@ -51,22 +51,21 @@ class UploadForm extends Component {
   state = {
     photos: [],
     id: this.props.id,
-    done: undefined,
-    loading: undefined,
+    done: false,
+    loading: false,
     rejections: []
   };
 
   resetUploads = () => {
-    this.setState({ photos: [], done: false });
+    this.setState({ photos: [] });
     this.props.onHide();
   };
 
-  uploadImg = () => {
-    this.props.uploadpics({
+  handleSubmitUpload = () => {
+    this.props.uploadPics({
       photos: this.state.photos,
       id: this.state.id
     });
-
     let seeingTime = 1000;
     let timeload = seeingTime + 100 * this.state.photos.length;
     let doneTime = timeload + 1000;
@@ -76,8 +75,8 @@ class UploadForm extends Component {
     setTimeout(() => this.resetUploads(), seeingTime + doneTime + 1000);
   };
 
-  changeHandler = (file) => {
-    const photos = this.state.photos.filter((picture) => {
+  changeHandler = file => {
+    const photos = this.state.photos.filter(picture => {
       return picture.name !== file.file.name;
     });
 
@@ -94,8 +93,8 @@ class UploadForm extends Component {
                 <label className="btn btn-primary justify-content-center align-items-center ">
                   <FileBase64
                     multiple={true}
-                    onDone={(pic) => {
-                      pic.forEach((picture) => {
+                    onDone={pic => {
+                      pic.forEach(picture => {
                         this.setState({
                           photos: this.state.photos.concat(picture)
                         });
@@ -107,19 +106,18 @@ class UploadForm extends Component {
                 <button
                   className="btn btn-green justify-content-center align-items-center ml-3 "
                   style={{ marginBottom: 7 }}
-                  onClick={() => this.uploadImg()}
+                  onClick={() => this.handleSubmitUpload()}
                 >
                   Upload
                 </button>
               </div>
               <br></br>
               <FilePond
-                files={this.state.photos.map((picture) => picture.file)}
+                files={this.state.photos.map(picture => picture.file)}
                 name="photos"
                 allowImageCrop={true}
                 allowMultiple={true}
                 maxFiles={10}
-                // onupdatefiles={(e) => }
                 onremovefile={(error, file) => this.changeHandler(file)}
                 instantUpload={false}
                 allowFileEncode={true}
@@ -131,22 +129,25 @@ class UploadForm extends Component {
               ></FilePond>
             </>
           ) : (
-            <div className="uploader d-flex justify-content-end mr-5 align-items-center row">
-              <label className="btn btn-primary justify-content-center align-items-center ">
-                <FileBase64
-                  multiple={true}
-                  onDone={(pic) => {
-                    pic.forEach((photos) => {
-                      this.setState({
-                        photos: this.state.photos.concat(photos)
+            <>
+              <p>Please Upload your pictures here </p>
+              <div className="uploader d-flex  justify-content-end mr-5 align-items-center row">
+                <label className="btn btn-primary justify-content-center align-items-center ">
+                  <FileBase64
+                    multiple={true}
+                    onDone={pic => {
+                      pic.forEach(photos => {
+                        this.setState({
+                          photos: this.state.photos.concat(photos)
+                        });
                       });
-                    });
-                  }}
-                />
-                Browse Photos
-              </label>
-              <br></br>
-            </div>
+                    }}
+                  />
+                  Browse Photos
+                </label>
+                <br></br>
+              </div>
+            </>
           )}
         </>
       );
@@ -172,6 +173,8 @@ class UploadForm extends Component {
 
   render() {
     if (!this.props.user) return <Redirect to="/homepage" />;
+    console.log("loading ", this.state.loading);
+    console.log("done ", this.state.done);
 
     return (
       <Modal
@@ -186,23 +189,21 @@ class UploadForm extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Please Upload your pictures here </p>
-          {/* {this.getAlert()} */}
           <div>{this.setUploader()}</div>
         </Modal.Body>
       </Modal>
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     user: state.authReducer.user
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    uploadpics: (photos) => dispatch(uploadpics(photos))
+    uploadPics: photos => dispatch(uploadPics(photos))
   };
 };
 
